@@ -320,3 +320,68 @@
 .btn-flotante-wsp:hover {
   transform: scale(1.05);
 }
+
+/* =========================================
+   PIE DE PÁGINA (FOOTER)
+   ========================================= */
+.footer {
+  background-color: var(--cmyk-black);
+  color: white;
+  padding: 70px 50px 20px;
+  margin-top: 50px; /* Separación de la sección anterior */
+}
+
+.footer-contenido {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+.footer-columna h3 {
+  color: var(--cmyk-cyan);
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.footer-columna h4 {
+  color: var(--cmyk-yellow);
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.footer-columna p {
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.footer-columna ul {
+  list-style: none;
+}
+
+.footer-columna ul li {
+  margin-bottom: 12px;
+}
+
+.footer-columna ul a {
+  color: #cccccc;
+  text-decoration: none;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+/* Efecto increíble al pasar el ratón: el texto se mueve a la derecha y se pinta de Magenta */
+.footer-columna ul a:hover {
+  color: var(--cmyk-magenta);
+  padding-left: 8px; 
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #888;
+  font-size: 0.9rem;
+}
