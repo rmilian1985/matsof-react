@@ -1,13 +1,98 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>matsof-web</title>
+    <title>MatSof - Productos Personalizados</title>
+    <!-- Aquí conectamos nuestra hoja de estilos -->
+    <link rel="stylesheet" href="./src/style.css">
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="navbar">
+      <div class="logo">
+        <img src="/logo.png" alt="MatSof Logo" class="logo-img">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#productos">Productos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- SECCIÓN PRINCIPAL (HERO) -->
+    <main>
+      <section id="inicio" class="hero">
+        <div class="hero-content">
+          <h2>Personaliza tu estilo, crea tu marca</h2>
+          <p>Polos, tazas, termos y más con la mejor calidad de impresión DTF.</p>
+          <button class="btn-primary">Ver Catálogo</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- SECCIÓN DE PRODUCTOS (Catálogo Dinámico) -->
+    <section id="productos" class="seccion-catalogo">
+      <h2 class="titulo-seccion">Nuestro Catálogo</h2>
+
+      <!-- SECCIÓN DE PRODUCTOS (Catálogo Dinámico) -->
+    <section id="productos" class="seccion-catalogo">
+      <h2 class="titulo-seccion">Nuestro Catálogo</h2>
+      
+      <!-- NUEVO: Contenedor de Filtros -->
+      <div class="filtros-categoria">
+        <button class="btn-filtro activo" data-categoria="Todos">Todos</button>
+        <button class="btn-filtro" data-categoria="Polos">Polos</button>
+        <button class="btn-filtro" data-categoria="Tazas">Tazas</button>
+        <button class="btn-filtro" data-categoria="Termos">Termos</button>
+      </div>
+      
+      <!-- Aquí es donde JavaScript inyectará las tarjetas de los productos -->
+      <div id="grid-productos" class="grid-productos">
+        <!-- El contenido se generará automáticamente -->
+      </div>
+    </section>
+      
+      <!-- Aquí es donde JavaScript inyectará las tarjetas de los productos -->
+      <div id="grid-productos" class="grid-productos">
+        <!-- El contenido se generará automáticamente -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE CONTACTO -->
+    <section id="contacto" class="seccion-contacto">
+      <div class="contacto-contenedor">
+        <h2>Cotiza tu Proyecto</h2>
+        <p>¿Tienes un diseño en mente? Déjanos tus datos y hagámoslo realidad con MatSof.</p>
+        
+        <form id="formulario-cotizacion" class="formulario">
+          <div class="grupo-input">
+            <input type="text" id="nombre" placeholder="Tu Nombre Completo" required>
+          </div>
+          <div class="grupo-input">
+            <input type="email" id="correo" placeholder="Tu Correo Electrónico" required>
+          </div>
+          <div class="grupo-input">
+            <select id="servicio" required>
+              <option value="" disabled selected>¿Qué te interesa?</option>
+              <option value="polos">Impresión de Polos</option>
+              <option value="tazas">Tazas Personalizadas</option>
+              <option value="termos">Termos Personalizados</option>
+              <option value="otro">Otro / Paquete Corporativo</option>
+            </select>
+          </div>
+          <div class="grupo-input">
+            <textarea id="mensaje" rows="4" placeholder="Cuéntanos los detalles (Cantidades, colores, fechas...)" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-enviar">Enviar Cotización</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Aquí conectamos nuestro JavaScript -->
+    <script type="module" src="./src/main.js"></script>
   </body>
 </html>
