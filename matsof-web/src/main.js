@@ -100,3 +100,47 @@ botonesFiltro.forEach(boton => {
     }
   });
 });
+
+// ==========================================
+// 6. FORMULARIO DE CONTACTO (EmailJS)
+// ==========================================
+
+// Inicializar EmailJS con tu Public Key
+emailjs.init("P7E3WdCKZ32p_0E0x");
+
+const formulario = document.getElementById('formulario-cotizacion');
+const botonEnviar = document.querySelector('.btn-enviar');
+
+formulario.addEventListener('submit', function(evento) {
+  // Prevenir que la página se recargue al enviar el formulario
+  evento.preventDefault();
+
+  // Cambiar el texto del botón para que el usuario sepa que está cargando
+  const textoOriginal = botonEnviar.innerText;
+  botonEnviar.innerText = 'Enviando...';
+  botonEnviar.disabled = true;
+
+  // Recopilar los datos exactos que pusimos en la plantilla de EmailJS
+  const parametros = {
+    nombre: document.getElementById('nombre').value,
+    correo: document.getElementById('correo').value,
+    servicio: document.getElementById('servicio').value,
+    mensaje: document.getElementById('mensaje').value,
+  };
+
+  // Enviar el correo usando tu Service ID y Template ID
+  emailjs.send("service_9c7ka5f", "template_orfycuz", parametros)
+    .then(function(respuesta) {
+      console.log('¡ÉXITO!', respuesta.status, respuesta.text);
+      alert('¡Mensaje enviado con éxito! Te contactaremos pronto.');
+      formulario.reset(); // Limpiar los campos del formulario
+    }, function(error) {
+      console.log('Fallo al enviar...', error);
+      alert('Hubo un error al enviar el mensaje. Inténtalo de nuevo.');
+    })
+    .finally(function() {
+      // Restaurar el botón a su estado normal
+      botonEnviar.innerText = textoOriginal;
+      botonEnviar.disabled = false;
+    });
+});
