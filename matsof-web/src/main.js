@@ -1,6 +1,8 @@
 import './style.css'; // Esto le dice a Vite que cargue tus diseños
 
-// 1. Nuestra "Base de Datos" (Arreglo de Objetos)
+// ==========================================
+// 1. BASE DE DATOS (Productos)
+// ==========================================
 const productos = [
   {
     id: 1,
@@ -32,201 +34,158 @@ const productos = [
   }
 ];
 
-// 2. Seleccionar el contenedor vacío que dejamos en el HTML
+// ==========================================
+// 2. CATÁLOGO Y FILTROS (Solo se ejecuta si existe el grid-productos)
+// ==========================================
 const contenedorProductos = document.getElementById('grid-productos');
 
-// 3. Función principal para renderizar (dibujar) los productos en pantalla
-function renderizarProductos(listaDatos) {
-  // Limpiamos el contenedor por si acaso
-  contenedorProductos.innerHTML = '';
+if (contenedorProductos) {
+  
+  // Función para dibujar los productos
+  function renderizarProductos(listaDatos) {
+    contenedorProductos.innerHTML = '';
+    
+    listaDatos.forEach(producto => {
+      const tarjeta = document.createElement('div');
+      tarjeta.classList.add('tarjeta-producto');
+      tarjeta.setAttribute('data-aos', 'fade-up');
+      tarjeta.setAttribute('data-aos-duration', '1000');
+      
+      tarjeta.innerHTML = `
+        <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img">
+        <div class="producto-info">
+          <span class="producto-categoria">${producto.categoria}</span>
+          <h3>${producto.nombre}</h3>
+          <p class="producto-precio">${producto.precio}</p>
+          <button class="btn-cotizar btn-agregar" data-id="${producto.id}">Agregar al Pedido</button>
+        </div>
+      `;
+      contenedorProductos.appendChild(tarjeta);
+    });
+  }
 
-  // Recorremos los datos uno por uno
-  listaDatos.forEach(producto => {
-    // Creamos un "div" virtual para la tarjeta
-    const tarjeta = document.createElement('div');
-    tarjeta.classList.add('tarjeta-producto');
+  // Dibujar todos los productos al cargar
+  renderizarProductos(productos);
 
-    // Agregamos la animación de AOS
-  tarjeta.setAttribute('data-aos', 'fade-up');
-  tarjeta.setAttribute('data-aos-duration', '1000'); // 1 segundo de duración
+  // Lógica de Filtros
+  const botonesFiltro = document.querySelectorAll('.btn-filtro');
+  botonesFiltro.forEach(boton => {
+    boton.addEventListener('click', (evento) => {
+      botonesFiltro.forEach(btn => btn.classList.remove('activo'));
+      const botonClickeado = evento.target;
+      botonClickeado.classList.add('activo');
 
-    // Le inyectamos el HTML interno usando los datos del objeto
-    tarjeta.innerHTML = `
-      <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img">
-      <div class="producto-info">
-        <span class="producto-categoria">${producto.categoria}</span>
-        <h3>${producto.nombre}</h3>
-        <p class="producto-precio">${producto.precio}</p>
-        <button class="btn-cotizar btn-agregar" data-id="${producto.id}">Agregar al Pedido</button>
-      </div>
-    `;
+      const categoriaSeleccionada = botonClickeado.getAttribute('data-categoria');
 
-    // Agregamos esta tarjeta terminada al contenedor real de la página
-    contenedorProductos.appendChild(tarjeta);
+      if (categoriaSeleccionada === 'Todos') {
+        renderizarProductos(productos); 
+      } else {
+        const productosFiltrados = productos.filter(producto => producto.categoria === categoriaSeleccionada);
+        renderizarProductos(productosFiltrados); 
+      }
+    });
   });
 }
 
-// 4. Ejecutar la función al cargar la página
-renderizarProductos(productos);
-
 // ==========================================
-// 5. LÓGICA DE FILTROS (Interactividad)
+// 3. FORMULARIO DE CONTACTO (Solo se ejecuta si existe el formulario)
 // ==========================================
-
-// Seleccionamos todos los botones que tengan la clase 'btn-filtro'
-const botonesFiltro = document.querySelectorAll('.btn-filtro');
-
-// A cada botón le agregamos un "escuchador de eventos" (EventListener) para detectar clics
-botonesFiltro.forEach(boton => {
-  boton.addEventListener('click', (evento) => {
-    
-    // a) Quitar la clase 'activo' de todos los botones para resetear su diseño
-    botonesFiltro.forEach(btn => btn.classList.remove('activo'));
-    
-    // b) Agregar la clase 'activo' SOLAMENTE al botón que recibió el clic
-    const botonClickeado = evento.target;
-    botonClickeado.classList.add('activo');
-
-    // c) Obtener el nombre de la categoría desde el atributo 'data-categoria' del HTML
-    const categoriaSeleccionada = botonClickeado.getAttribute('data-categoria');
-
-    // d) Filtrar los datos como si fuera una consulta de base de datos
-    if (categoriaSeleccionada === 'Todos') {
-      // Si eligió "Todos", enviamos el arreglo original completo a dibujar
-      renderizarProductos(productos); 
-    } else {
-      // Si eligió otra cosa, filtramos el arreglo. 
-      // Nos quedamos solo con los productos cuya categoría coincida.
-      const productosFiltrados = productos.filter(producto => producto.categoria === categoriaSeleccionada);
-      
-      // Dibujamos el nuevo arreglo filtrado
-      renderizarProductos(productosFiltrados); 
-    }
-  });
-});
-
-// ==========================================
-// 6. FORMULARIO DE CONTACTO (EmailJS)
-// ==========================================
-
-// Inicializar EmailJS con tu Public Key
-emailjs.init("P7E3WdCKZ32p_0E0x");
-
 const formulario = document.getElementById('formulario-cotizacion');
-const botonEnviar = document.querySelector('.btn-enviar');
 
-formulario.addEventListener('submit', function(evento) {
-  // Prevenir que la página se recargue al enviar el formulario
-  evento.preventDefault();
+if (formulario) {
+  emailjs.init("P7E3WdCKZ32p_0E0x"); // Tu Public Key
+  const botonEnviar = document.querySelector('.btn-enviar');
 
-  // Cambiar el texto del botón para que el usuario sepa que está cargando
-  const textoOriginal = botonEnviar.innerText;
-  botonEnviar.innerText = 'Enviando...';
-  botonEnviar.disabled = true;
+  formulario.addEventListener('submit', function(evento) {
+    evento.preventDefault();
+    
+    const textoOriginal = botonEnviar.innerText;
+    botonEnviar.innerText = 'Enviando...';
+    botonEnviar.disabled = true;
 
-  // Recopilar los datos exactos que pusimos en la plantilla de EmailJS
-  const parametros = {
-    nombre: document.getElementById('nombre').value,
-    correo: document.getElementById('correo').value,
-    servicio: document.getElementById('servicio').value,
-    mensaje: document.getElementById('mensaje').value,
-  };
+    const parametros = {
+      nombre: document.getElementById('nombre').value,
+      correo: document.getElementById('correo').value,
+      servicio: document.getElementById('servicio').value,
+      mensaje: document.getElementById('mensaje').value,
+    };
 
-  // Enviar el correo usando tu Service ID y Template ID
-  emailjs.send("service_9c7ka5f", "template_orfycuz", parametros)
-    .then(function(respuesta) {
-      console.log('¡ÉXITO!', respuesta.status, respuesta.text);
-      
-      // Alerta PRO de Éxito
-      Swal.fire({
-        title: '¡Cotización Enviada!',
-        text: 'Hemos recibido tu mensaje. Nos contactaremos contigo muy pronto.',
-        icon: 'success',
-        confirmButtonColor: '#00AEEF' // Tu color Cian
+    emailjs.send("service_9c7ka5f", "template_orfycuz", parametros)
+      .then(function(respuesta) {
+        console.log('¡ÉXITO!', respuesta.status, respuesta.text);
+        Swal.fire({
+          title: '¡Cotización Enviada!',
+          text: 'Hemos recibido tu mensaje. Nos contactaremos contigo muy pronto.',
+          icon: 'success',
+          confirmButtonColor: '#00AEEF' 
+        });
+        formulario.reset();
+      }, function(error) {
+        console.log('Fallo al enviar...', error);
+        Swal.fire({
+          title: '¡Ups!',
+          text: 'Hubo un error al enviar tu mensaje. Inténtalo de nuevo.',
+          icon: 'error',
+          confirmButtonColor: '#E6007E' 
+        });
+      })
+      .finally(function() {
+        botonEnviar.innerText = textoOriginal;
+        botonEnviar.disabled = false;
       });
-      
-      formulario.reset();
-    }, function(error) {
-      console.log('Fallo al enviar...', error);
-      
-      // Alerta PRO de Error
-      Swal.fire({
-        title: '¡Ups!',
-        text: 'Hubo un error al enviar tu mensaje. Inténtalo de nuevo.',
-        icon: 'error',
-        confirmButtonColor: '#E6007E' // Tu color Magenta
-      });
-
-    })
-    .finally(function() {
-      // Restaurar el botón a su estado normal
-      botonEnviar.innerText = textoOriginal;
-      botonEnviar.disabled = false;
-    });
-});
+  });
+}
 
 // ==========================================
-// 7. INICIALIZAR ANIMACIONES (AOS)
+// 4. CARRITO DE COMPRAS Y WSP (Solo se ejecuta si existe el botón flotante)
 // ==========================================
-AOS.init({
-  once: true // Para que la animación ocurra solo la primera vez que bajas
-});
-
-// ==========================================
-// 8. CARRITO DE COMPRAS Y WHATSAPP
-// ==========================================
-
-let carrito = []; // Nuestra caja vacía donde guardaremos los productos
-const contadorCarrito = document.getElementById('contador-carrito');
 const btnFlotanteWsp = document.getElementById('btn-flotante-wsp');
 
-// Reemplaza esto con TU número de celular real (El 51 es el código de Perú)
-const numeroWhatsApp = "51983400330"; 
+if (btnFlotanteWsp) {
+  let carrito = []; 
+  const contadorCarrito = document.getElementById('contador-carrito');
+  const numeroWhatsApp = "51983400330"; // Tu número real
 
-// Escuchamos los clics en el contenedor de productos
-document.getElementById('grid-productos').addEventListener('click', (evento) => {
-  // Verificamos si lo que clickeó fue el botón de "Agregar al Pedido"
-  if (evento.target.classList.contains('btn-agregar')) {
-    
-    // Obtenemos el ID del producto clickeado
-    const idProducto = parseInt(evento.target.getAttribute('data-id'));
-    
-    // Buscamos el producto en nuestra base de datos (arreglo original)
-    const productoSeleccionado = productos.find(p => p.id === idProducto);
-    
-    // Lo metemos al carrito
-    carrito.push(productoSeleccionado);
-    
-    // Actualizamos el número que se ve en el botón verde
-    contadorCarrito.innerText = carrito.length;
-    btnFlotanteWsp.style.display = 'block'; // Mostramos el botón de WhatsApp
-    
-    // Mostramos una notificación miniatura (Toast) de SweetAlert
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: `${productoSeleccionado.nombre} agregado`,
-      showConfirmButton: false,
-      timer: 1500,
-      toast: true
+  // Nos aseguramos de que el grid-productos también exista en esta página antes de escuchar clics
+  if (contenedorProductos) {
+    contenedorProductos.addEventListener('click', (evento) => {
+      if (evento.target.classList.contains('btn-agregar')) {
+        const idProducto = parseInt(evento.target.getAttribute('data-id'));
+        const productoSeleccionado = productos.find(p => p.id === idProducto);
+        
+        carrito.push(productoSeleccionado);
+        contadorCarrito.innerText = carrito.length;
+        btnFlotanteWsp.style.display = 'block'; 
+        
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: `${productoSeleccionado.nombre} agregado`,
+          showConfirmButton: false,
+          timer: 1500,
+          toast: true
+        });
+      }
     });
   }
-});
 
-// Lógica para el clic en el botón de WhatsApp
-btnFlotanteWsp.addEventListener('click', (evento) => {
-  evento.preventDefault(); // Evita que la página salte hacia arriba
-  
-  // Construimos el texto del mensaje
-  let textoMensaje = "Hola MatSof, quiero cotizar el siguiente pedido:%0A%0A";
-  
-  carrito.forEach((prod, index) => {
-    textoMensaje += `${index + 1}. ${prod.nombre} (${prod.precio})%0A`;
+  btnFlotanteWsp.addEventListener('click', (evento) => {
+    evento.preventDefault(); 
+    let textoMensaje = "Hola MatSof, quiero cotizar el siguiente pedido:%0A%0A";
+    
+    carrito.forEach((prod, index) => {
+      textoMensaje += `${index + 1}. ${prod.nombre} (${prod.precio})%0A`;
+    });
+    
+    textoMensaje += "%0A¡Quedo atento a su respuesta!";
+    const url = `https://wa.me/${numeroWhatsApp}?text=${textoMensaje}`;
+    window.open(url, '_blank');
   });
-  
-  textoMensaje += "%0A¡Quedo atento a su respuesta!";
-  
-  // Abrimos WhatsApp con el mensaje pre-armado
-  const url = `https://wa.me/${numeroWhatsApp}?text=${textoMensaje}`;
-  window.open(url, '_blank');
+}
+
+// ==========================================
+// 5. INICIALIZAR ANIMACIONES (AOS) - Se ejecuta en todas las páginas
+// ==========================================
+AOS.init({
+  once: true 
 });
