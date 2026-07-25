@@ -57,7 +57,7 @@ function renderizarProductos(listaDatos) {
         <span class="producto-categoria">${producto.categoria}</span>
         <h3>${producto.nombre}</h3>
         <p class="producto-precio">${producto.precio}</p>
-        <button class="btn-cotizar">Cotizar</button>
+        <button class="btn-cotizar btn-agregar" data-id="${producto.id}">Agregar al Pedido</button>
       </div>
     `;
 
@@ -170,4 +170,63 @@ formulario.addEventListener('submit', function(evento) {
 // ==========================================
 AOS.init({
   once: true // Para que la animación ocurra solo la primera vez que bajas
+});
+
+// ==========================================
+// 8. CARRITO DE COMPRAS Y WHATSAPP
+// ==========================================
+
+let carrito = []; // Nuestra caja vacía donde guardaremos los productos
+const contadorCarrito = document.getElementById('contador-carrito');
+const btnFlotanteWsp = document.getElementById('btn-flotante-wsp');
+
+// Reemplaza esto con TU número de celular real (El 51 es el código de Perú)
+const numeroWhatsApp = "51983400330"; 
+
+// Escuchamos los clics en el contenedor de productos
+document.getElementById('grid-productos').addEventListener('click', (evento) => {
+  // Verificamos si lo que clickeó fue el botón de "Agregar al Pedido"
+  if (evento.target.classList.contains('btn-agregar')) {
+    
+    // Obtenemos el ID del producto clickeado
+    const idProducto = parseInt(evento.target.getAttribute('data-id'));
+    
+    // Buscamos el producto en nuestra base de datos (arreglo original)
+    const productoSeleccionado = productos.find(p => p.id === idProducto);
+    
+    // Lo metemos al carrito
+    carrito.push(productoSeleccionado);
+    
+    // Actualizamos el número que se ve en el botón verde
+    contadorCarrito.innerText = carrito.length;
+    btnFlotanteWsp.style.display = 'block'; // Mostramos el botón de WhatsApp
+    
+    // Mostramos una notificación miniatura (Toast) de SweetAlert
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: `${productoSeleccionado.nombre} agregado`,
+      showConfirmButton: false,
+      timer: 1500,
+      toast: true
+    });
+  }
+});
+
+// Lógica para el clic en el botón de WhatsApp
+btnFlotanteWsp.addEventListener('click', (evento) => {
+  evento.preventDefault(); // Evita que la página salte hacia arriba
+  
+  // Construimos el texto del mensaje
+  let textoMensaje = "Hola MatSof, quiero cotizar el siguiente pedido:%0A%0A";
+  
+  carrito.forEach((prod, index) => {
+    textoMensaje += `${index + 1}. ${prod.nombre} (${prod.precio})%0A`;
+  });
+  
+  textoMensaje += "%0A¡Quedo atento a su respuesta!";
+  
+  // Abrimos WhatsApp con el mensaje pre-armado
+  const url = `https://wa.me/${numeroWhatsApp}?text=${textoMensaje}`;
+  window.open(url, '_blank');
 });

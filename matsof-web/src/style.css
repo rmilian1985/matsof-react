@@ -296,3 +296,27 @@
   width: 100%;
   margin-top: 10px;
 }
+
+/* =========================================
+   BOTÓN FLOTANTE WSP / CARRITO
+   ========================================= */
+.btn-flotante-wsp {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #25D366; /* Verde oficial de WhatsApp */
+  color: white;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  display: none; /* Lo mantenemos oculto hasta que agreguen algo al carrito */
+}
+
+.btn-flotante-wsp:hover {
+  transform: scale(1.05);
+}
