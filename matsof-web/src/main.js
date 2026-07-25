@@ -46,6 +46,10 @@ function renderizarProductos(listaDatos) {
     const tarjeta = document.createElement('div');
     tarjeta.classList.add('tarjeta-producto');
 
+    // Agregamos la animación de AOS
+  tarjeta.setAttribute('data-aos', 'fade-up');
+  tarjeta.setAttribute('data-aos-duration', '1000'); // 1 segundo de duración
+
     // Le inyectamos el HTML interno usando los datos del objeto
     tarjeta.innerHTML = `
       <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img">
@@ -132,15 +136,38 @@ formulario.addEventListener('submit', function(evento) {
   emailjs.send("service_9c7ka5f", "template_orfycuz", parametros)
     .then(function(respuesta) {
       console.log('¡ÉXITO!', respuesta.status, respuesta.text);
-      alert('¡Mensaje enviado con éxito! Te contactaremos pronto.');
-      formulario.reset(); // Limpiar los campos del formulario
+      
+      // Alerta PRO de Éxito
+      Swal.fire({
+        title: '¡Cotización Enviada!',
+        text: 'Hemos recibido tu mensaje. Nos contactaremos contigo muy pronto.',
+        icon: 'success',
+        confirmButtonColor: '#00AEEF' // Tu color Cian
+      });
+      
+      formulario.reset();
     }, function(error) {
       console.log('Fallo al enviar...', error);
-      alert('Hubo un error al enviar el mensaje. Inténtalo de nuevo.');
+      
+      // Alerta PRO de Error
+      Swal.fire({
+        title: '¡Ups!',
+        text: 'Hubo un error al enviar tu mensaje. Inténtalo de nuevo.',
+        icon: 'error',
+        confirmButtonColor: '#E6007E' // Tu color Magenta
+      });
+
     })
     .finally(function() {
       // Restaurar el botón a su estado normal
       botonEnviar.innerText = textoOriginal;
       botonEnviar.disabled = false;
     });
+});
+
+// ==========================================
+// 7. INICIALIZAR ANIMACIONES (AOS)
+// ==========================================
+AOS.init({
+  once: true // Para que la animación ocurra solo la primera vez que bajas
 });
