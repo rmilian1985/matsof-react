@@ -6,16 +6,15 @@
     <title>MatSof - Productos Personalizados</title>
     <!-- Aquí conectamos nuestra hoja de estilos -->
     <link rel="stylesheet" href="./src/style.css">
-    <!-- Estilos de AOS (Animaciones) -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <!-- Íconos de FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos de AOS (Animaciones) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   </head>
   <body>
     
     <!-- =========================================
-         BARRA DE NAVEGACIÓN PRO (DOBLE NIVEL)
+         BARRA DE NAVEGACIÓN PRO (DOBLE NIVEL - IZQUIERDA)
          ========================================= -->
     <header class="header-principal">
       
@@ -27,17 +26,17 @@
           </a>
         </div>
 
-        <!-- CENTRO: Buscador -->
-      <div class="navbar-centro">
-        <div class="contenedor-buscador">
-          <div class="caja-buscador">
-            <input type="text" id="input-buscador" placeholder="Buscar polos, tazas, termos...">
-            <button type="submit" class="btn-buscar"><i class="fas fa-search"></i></button>
+        <!-- CENTRO: Buscador con Cuadro Flotante -->
+        <div class="navbar-centro">
+          <div class="contenedor-buscador">
+            <div class="caja-buscador">
+              <input type="text" id="input-buscador" placeholder="Buscar polos, tazas, termos...">
+              <button type="submit" class="btn-buscar"><i class="fas fa-search"></i></button>
+            </div>
+            <!-- Desplegable flotante de resultados -->
+            <div id="resultados-busqueda" class="resultados-dropdown oculto"></div>
           </div>
-          <!-- NUEVO: Desplegable flotante de resultados -->
-          <div id="resultados-busqueda" class="resultados-dropdown oculto"></div>
         </div>
-      </div>
 
         <div class="navbar-der">
           <a href="#" class="icono-texto"><i class="fas fa-globe"></i> ES / PEN</a>
@@ -59,7 +58,7 @@
     </header>
 
     <!-- =========================================
-         SECCIÓN HERO (AL ESTILO PRINTFUL)
+         SECCIÓN HERO (PORTADA)
          ========================================= -->
     <header class="hero">
       <div class="hero-contenido" data-aos="fade-right" data-aos-duration="1000">
@@ -71,7 +70,6 @@
         </div>
       </div>
       <div class="hero-imagen" data-aos="fade-left" data-aos-duration="1200">
-        <!-- Imagen tipo mockup flotante (Temporal hasta que tengas la tuya) -->
         <img src="https://via.placeholder.com/600x500/1A1A1A/00AEEF?text=Tu+Dise%C3%B1o+AQU%C3%8D" alt="Muestra de productos MatSof">
       </div>
     </header>
@@ -155,13 +153,11 @@
     <footer class="footer">
       <div class="footer-contenido">
         
-        <!-- Columna 1: Marca -->
         <div class="footer-columna">
           <h3>MatSof.</h3>
           <p>Personaliza tu estilo, crea tu marca con la mejor calidad en impresión DTF y sublimación.</p>
         </div>
         
-        <!-- Columna 2: Navegación -->
         <div class="footer-columna">
           <h4>Enlaces Rápidos</h4>
           <ul>
@@ -171,7 +167,6 @@
           </ul>
         </div>
         
-        <!-- Columna 3: Contacto -->
         <div class="footer-columna">
           <h4>Contáctanos</h4>
           <p>📍 San Juan de Miraflores, Lima</p>
@@ -181,7 +176,6 @@
 
       </div>
       
-      <!-- Línea final de derechos de autor -->
       <div class="footer-bottom">
         <p>&copy; 2026 MatSof. Todos los derechos reservados.</p>
       </div>

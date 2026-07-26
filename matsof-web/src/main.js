@@ -35,36 +35,44 @@ const productos = [
 ];
 
 // ==========================================
-// 2. CATÁLOGO Y BUSCADOR INTELIGENTE
+// 2. ELEMENTOS DEL DOM
 // ==========================================
 const contenedorProductos = document.getElementById('grid-productos');
 const inputBuscador = document.getElementById('input-buscador'); 
 const resultadosDropdown = document.getElementById('resultados-busqueda');
 
-if (contenedorProductos) {
+// ==========================================
+// 3. FUNCIÓN GLOBAL PARA DIBUJAR PRODUCTOS
+// ==========================================
+function renderizarProductos(listaDatos) {
+  // Si estamos en una página sin catálogo (como Nosotros), no hacemos nada aquí
+  if (!contenedorProductos) return; 
   
-  function renderizarProductos(listaDatos) {
-    contenedorProductos.innerHTML = '';
+  contenedorProductos.innerHTML = '';
+  
+  listaDatos.forEach(producto => {
+    const tarjeta = document.createElement('div');
+    tarjeta.classList.add('tarjeta-producto');
+    tarjeta.setAttribute('data-aos', 'fade-up');
+    tarjeta.setAttribute('data-aos-duration', '1000');
     
-    listaDatos.forEach(producto => {
-      const tarjeta = document.createElement('div');
-      tarjeta.classList.add('tarjeta-producto');
-      tarjeta.setAttribute('data-aos', 'fade-up');
-      tarjeta.setAttribute('data-aos-duration', '1000');
-      
-      tarjeta.innerHTML = `
-        <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img">
-        <div class="producto-info">
-          <span class="producto-categoria">${producto.categoria}</span>
-          <h3>${producto.nombre}</h3>
-          <p class="producto-precio">${producto.precio}</p>
-          <button class="btn-cotizar btn-agregar" data-id="${producto.id}">Agregar al Pedido</button>
-        </div>
-      `;
-      contenedorProductos.appendChild(tarjeta);
-    });
-  }
+    tarjeta.innerHTML = `
+      <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img">
+      <div class="producto-info">
+        <span class="producto-categoria">${producto.categoria}</span>
+        <h3>${producto.nombre}</h3>
+        <p class="producto-precio">${producto.precio}</p>
+        <button class="btn-cotizar btn-agregar" data-id="${producto.id}">Agregar al Pedido</button>
+      </div>
+    `;
+    contenedorProductos.appendChild(tarjeta);
+  });
+}
 
+// ==========================================
+// 4. LÓGICA DE FILTROS (Solo en el Inicio)
+// ==========================================
+if (contenedorProductos) {
   renderizarProductos(productos);
 
   const botonesFiltro = document.querySelectorAll('.btn-filtro');
@@ -88,28 +96,32 @@ if (contenedorProductos) {
   });
 }
 
-// C. Lógica del Buscador Flotante (Estilo Printful)
+// ==========================================
+// 5. LÓGICA DEL BUSCADOR FLOTANTE
+// ==========================================
 if (inputBuscador && resultadosDropdown) {
   inputBuscador.addEventListener('input', (evento) => {
     const textoBusqueda = evento.target.value.toLowerCase().trim();
     
-    // Si la barra está vacía, ocultamos el cuadro
+    // Si borran el texto, ocultamos el cuadro y mostramos todos los productos
     if (textoBusqueda === '') {
       resultadosDropdown.classList.add('oculto');
       resultadosDropdown.innerHTML = '';
-      if (contenedorProductos) renderizarProductos(productos);
+      renderizarProductos(productos);
       return;
     }
 
+    // Buscamos coincidencias
     const productosFiltrados = productos.filter(producto => {
       const nombreProducto = producto.nombre.toLowerCase();
       const categoriaProducto = producto.categoria.toLowerCase();
       return nombreProducto.includes(textoBusqueda) || categoriaProducto.includes(textoBusqueda);
     });
 
-    if (contenedorProductos) renderizarProductos(productosFiltrados);
+    // Actualizamos el catálogo principal de fondo (si existe)
+    renderizarProductos(productosFiltrados);
 
-    // Limpiamos y dibujamos el cuadro flotante
+    // Dibujamos el cuadro flotante
     resultadosDropdown.innerHTML = '';
 
     if (productosFiltrados.length > 0) {
@@ -124,12 +136,12 @@ if (inputBuscador && resultadosDropdown) {
           </div>
         `;
         
-        // Si hace clic en un resultado flotante:
+        // Clic en un resultado del cuadro flotante
         item.addEventListener('click', () => {
-          window.location.href = '/#productos'; // Viaja directo al catálogo
+          window.location.href = '/#productos'; 
           inputBuscador.value = ''; 
           resultadosDropdown.classList.add('oculto'); 
-          if (contenedorProductos) renderizarProductos([producto]); 
+          renderizarProductos([producto]); 
         });
         
         resultadosDropdown.appendChild(item);
@@ -143,11 +155,12 @@ if (inputBuscador && resultadosDropdown) {
       resultadosDropdown.classList.remove('oculto');
     }
     
+    // Desactivamos los botones de categorías (Polos, Tazas)
     const botonesFiltro = document.querySelectorAll('.btn-filtro');
     if (botonesFiltro) botonesFiltro.forEach(btn => btn.classList.remove('activo'));
   });
 
-  // Truco UX: Ocultar cuadro si hace clic en el fondo blanco de la página
+  // Ocultar el cuadro si el usuario hace clic afuera de la barra
   document.addEventListener('click', (evento) => {
     if (!inputBuscador.contains(evento.target) && !resultadosDropdown.contains(evento.target)) {
       resultadosDropdown.classList.add('oculto');
@@ -156,7 +169,7 @@ if (inputBuscador && resultadosDropdown) {
 }
 
 // ==========================================
-// 3. FORMULARIO DE CONTACTO (EmailJS)
+// 6. FORMULARIO DE CONTACTO (EmailJS)
 // ==========================================
 const formulario = document.getElementById('formulario-cotizacion');
 
@@ -203,7 +216,7 @@ if (formulario) {
 }
 
 // ==========================================
-// 4. CARRITO DE COMPRAS Y WSP
+// 7. CARRITO DE COMPRAS Y WSP
 // ==========================================
 const btnFlotanteWsp = document.getElementById('btn-flotante-wsp');
 
@@ -249,7 +262,7 @@ if (btnFlotanteWsp) {
 }
 
 // ==========================================
-// 5. INICIALIZAR ANIMACIONES (AOS)
+// 8. INICIALIZAR ANIMACIONES (AOS)
 // ==========================================
 AOS.init({
   once: true 
