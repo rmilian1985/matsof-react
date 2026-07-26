@@ -23,19 +23,24 @@ body {
 }
 
 /* =========================================
-   1. BARRA DE NAVEGACIÓN PRO (TIPO PRINTFUL)
+   1. BARRA DE NAVEGACIÓN PRO (DOBLE NIVEL - IZQUIERDA)
    ========================================= */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 5%;
-  background-color: white;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+.header-principal {
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* --- Nivel de Arriba (Buscador y Login) --- */
+.navbar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%;
+  border-bottom: 1px solid #f0f0f0; 
   gap: 20px;
 }
 
@@ -51,15 +56,13 @@ body {
 .navbar-centro {
   flex: 1; 
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  justify-content: center; 
 }
 
 .caja-buscador {
   display: flex;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   border: 1px solid #ddd;
   border-radius: 50px;
   overflow: hidden;
@@ -92,24 +95,6 @@ body {
   background-color: #008fcc;
 }
 
-.menu-principal ul {
-  display: flex;
-  list-style: none;
-  gap: 25px;
-}
-
-.menu-principal a {
-  text-decoration: none;
-  color: var(--cmyk-black);
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: color 0.3s ease;
-}
-
-.menu-principal a:hover {
-  color: var(--cmyk-magenta);
-}
-
 .navbar-der {
   display: flex;
   align-items: center;
@@ -125,10 +110,6 @@ body {
   align-items: center;
   gap: 6px;
   transition: color 0.3s ease;
-}
-
-.icono-texto i {
-  font-size: 1.1rem;
 }
 
 .icono-texto:hover {
@@ -151,8 +132,34 @@ body {
   color: var(--cmyk-black);
 }
 
+/* --- Nivel de Abajo (Enlaces de Navegación) --- */
+.navbar-bottom {
+  background-color: #fafafa;
+  padding: 12px 5%; /* El mismo 5% lateral que tiene el logo arriba */
+}
+
+.menu-enlaces {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+  justify-content: flex-start; /* AQUÍ ESTÁ LA MAGIA: Todo a la izquierda */
+}
+
+.menu-enlaces a {
+  text-decoration: none;
+  color: var(--cmyk-black);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.menu-enlaces a:hover {
+  color: var(--cmyk-magenta);
+}
+
+/* Ajustes para celulares */
 @media (max-width: 950px) {
-  .navbar {
+  .navbar-top {
     flex-direction: column;
     padding: 15px;
   }
@@ -160,6 +167,11 @@ body {
     width: 100%;
     justify-content: center;
     gap: 15px;
+  }
+  .menu-enlaces {
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center; /* En móviles es mejor dejarlo centrado */
   }
 }
 

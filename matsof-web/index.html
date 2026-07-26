@@ -15,40 +15,42 @@
   <body>
     
     <!-- =========================================
-         BARRA DE NAVEGACIÓN PRO (TIPO PRINTFUL)
+         BARRA DE NAVEGACIÓN PRO (DOBLE NIVEL)
          ========================================= -->
-    <header class="navbar">
+    <header class="header-principal">
       
-      <!-- IZQUIERDA: Logo -->
-      <div class="navbar-izq">
-        <a href="/">
-          <img src="/logo.png" alt="MatSof Logo" class="logo-img">
-        </a>
-      </div>
-
-      <!-- CENTRO: Buscador y Menú -->
-      <div class="navbar-centro">
-        <div class="caja-buscador">
-          <input type="text" placeholder="Buscar polos, tazas, termos...">
-          <button type="submit" class="btn-buscar"><i class="fas fa-search"></i></button>
+      <!-- NIVEL SUPERIOR: Logo, Buscador y Acciones -->
+      <div class="navbar-top">
+        <div class="navbar-izq">
+          <a href="/">
+            <img src="/logo.png" alt="MatSof Logo" class="logo-img">
+          </a>
         </div>
-        <nav class="menu-principal">
-          <ul>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/nosotros.html">Nosotros</a></li>
-            <li><a href="#productos">Catálogo</a></li>
-            <li><a href="#contacto">Cotizar</a></li>
-          </ul>
-        </nav>
+
+        <div class="navbar-centro">
+          <div class="caja-buscador">
+            <input type="text" id="input-buscador" placeholder="Buscar polos, tazas, termos...">
+            <button type="submit" class="btn-buscar"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+
+        <div class="navbar-der">
+          <a href="#" class="icono-texto"><i class="fas fa-globe"></i> ES / PEN</a>
+          <a href="#" class="icono-texto"><i class="fas fa-user"></i> Entrar</a>
+          <a href="#" class="btn-registro">Registrarse</a>
+        </div>
       </div>
 
-      <!-- DERECHA: Cuenta y Región -->
-      <div class="navbar-der">
-        <a href="#" class="icono-texto"><i class="fas fa-globe"></i> ES / PEN</a>
-        <a href="#" class="icono-texto"><i class="fas fa-user"></i> Entrar</a>
-        <a href="#" class="btn-registro">Registrarse</a>
-      </div>
-
+      <!-- NIVEL INFERIOR: Menú alineado a la izquierda -->
+      <nav class="navbar-bottom">
+        <ul class="menu-enlaces">
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/nosotros.html">Nosotros</a></li>
+          <li><a href="/#productos">Catálogo</a></li>
+          <li><a href="/#contacto">Cotizar</a></li>
+        </ul>
+      </nav>
+      
     </header>
 
     <!-- =========================================

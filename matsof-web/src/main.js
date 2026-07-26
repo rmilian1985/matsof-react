@@ -35,13 +35,14 @@ const productos = [
 ];
 
 // ==========================================
-// 2. CATÁLOGO Y FILTROS (Solo se ejecuta si existe el grid-productos)
+// 2. CATÁLOGO, FILTROS Y BUSCADOR
 // ==========================================
 const contenedorProductos = document.getElementById('grid-productos');
+const inputBuscador = document.getElementById('input-buscador'); // Atrapamos el buscador
 
 if (contenedorProductos) {
   
-  // Función para dibujar los productos
+  // A. Función para dibujar los productos
   function renderizarProductos(listaDatos) {
     contenedorProductos.innerHTML = '';
     
@@ -64,13 +65,17 @@ if (contenedorProductos) {
     });
   }
 
-  // Dibujar todos los productos al cargar
+  // Dibujar todos los productos al cargar la página
   renderizarProductos(productos);
 
-  // Lógica de Filtros
+  // B. Lógica de Filtros (Botones)
   const botonesFiltro = document.querySelectorAll('.btn-filtro');
   botonesFiltro.forEach(boton => {
     boton.addEventListener('click', (evento) => {
+      
+      // Si hacen clic en un botón, limpiamos lo que haya en la barra de búsqueda
+      if (inputBuscador) inputBuscador.value = '';
+
       botonesFiltro.forEach(btn => btn.classList.remove('activo'));
       const botonClickeado = evento.target;
       botonClickeado.classList.add('activo');
@@ -85,10 +90,32 @@ if (contenedorProductos) {
       }
     });
   });
+
+  // C. Lógica del Buscador en tiempo real
+  if (inputBuscador) {
+    inputBuscador.addEventListener('input', (evento) => {
+      // Pasamos lo que escribe el usuario a minúsculas
+      const textoBusqueda = evento.target.value.toLowerCase();
+      
+      // Filtramos la base de datos comparando el nombre o la categoría
+      const productosFiltrados = productos.filter(producto => {
+        const nombreProducto = producto.nombre.toLowerCase();
+        const categoriaProducto = producto.categoria.toLowerCase();
+        
+        return nombreProducto.includes(textoBusqueda) || categoriaProducto.includes(textoBusqueda);
+      });
+
+      // Dibujamos los productos que coinciden
+      renderizarProductos(productosFiltrados);
+
+      // Le quitamos la clase 'activo' a los botones porque ahora manda el buscador
+      botonesFiltro.forEach(btn => btn.classList.remove('activo'));
+    });
+  }
 }
 
 // ==========================================
-// 3. FORMULARIO DE CONTACTO (Solo se ejecuta si existe el formulario)
+// 3. FORMULARIO DE CONTACTO (EmailJS)
 // ==========================================
 const formulario = document.getElementById('formulario-cotizacion');
 
@@ -137,7 +164,7 @@ if (formulario) {
 }
 
 // ==========================================
-// 4. CARRITO DE COMPRAS Y WSP (Solo se ejecuta si existe el botón flotante)
+// 4. CARRITO DE COMPRAS Y WSP
 // ==========================================
 const btnFlotanteWsp = document.getElementById('btn-flotante-wsp');
 
@@ -146,7 +173,6 @@ if (btnFlotanteWsp) {
   const contadorCarrito = document.getElementById('contador-carrito');
   const numeroWhatsApp = "51983400330"; // Tu número real
 
-  // Nos aseguramos de que el grid-productos también exista en esta página antes de escuchar clics
   if (contenedorProductos) {
     contenedorProductos.addEventListener('click', (evento) => {
       if (evento.target.classList.contains('btn-agregar')) {
@@ -184,7 +210,7 @@ if (btnFlotanteWsp) {
 }
 
 // ==========================================
-// 5. INICIALIZAR ANIMACIONES (AOS) - Se ejecuta en todas las páginas
+// 5. INICIALIZAR ANIMACIONES (AOS)
 // ==========================================
 AOS.init({
   once: true 

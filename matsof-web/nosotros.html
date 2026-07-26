@@ -7,21 +7,50 @@
     <title>Nosotros - MatSof</title>
     <!-- Estilos AOS (Animaciones) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Íconos de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </head>
   <body>
-    <!-- BARRA DE NAVEGACIÓN -->
-    <nav class="navbar">
-      <div class="logo">
-        <a href="/">
-          <img src="/logo.png" alt="MatSof Logo" class="logo-img">
-        </a>
+    
+    <!-- =========================================
+         BARRA DE NAVEGACIÓN PRO (DOBLE NIVEL)
+         ========================================= -->
+    <header class="header-principal">
+      
+      <!-- NIVEL SUPERIOR: Logo, Buscador y Acciones -->
+      <div class="navbar-top">
+        <div class="navbar-izq">
+          <a href="/">
+            <img src="/logo.png" alt="MatSof Logo" class="logo-img">
+          </a>
+        </div>
+
+        <div class="navbar-centro">
+          <div class="caja-buscador">
+            <input type="text" id="input-buscador" placeholder="Buscar polos, tazas, termos...">
+            <button type="submit" class="btn-buscar"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+
+        <div class="navbar-der">
+          <a href="#" class="icono-texto"><i class="fas fa-globe"></i> ES / PEN</a>
+          <a href="#" class="icono-texto"><i class="fas fa-user"></i> Entrar</a>
+          <a href="#" class="btn-registro">Registrarse</a>
+        </div>
       </div>
-      <ul>
-        <li><a href="/">Inicio</a></li>
-        <li><a href="/nosotros.html" style="color: var(--cmyk-cyan);">Nosotros</a></li>
-        <li><a href="/#productos">Catálogo</a></li>
-      </ul>
-    </nav>
+
+      <!-- NIVEL INFERIOR: Menú alineado a la izquierda -->
+      <nav class="navbar-bottom">
+        <ul class="menu-enlaces">
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/nosotros.html">Nosotros</a></li>
+          <li><a href="/#productos">Catálogo</a></li>
+          <li><a href="/#contacto">Cotizar</a></li>
+        </ul>
+      </nav>
+      
+    </header>
 
     <!-- SECCIÓN NOSOTROS -->
     <section class="seccion-nosotros">
