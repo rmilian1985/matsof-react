@@ -8,24 +8,47 @@
     <link rel="stylesheet" href="./src/style.css">
     <!-- Estilos de AOS (Animaciones) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Íconos de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </head>
   <body>
     
-    <!-- BARRA DE NAVEGACIÓN -->
+    <!-- =========================================
+         BARRA DE NAVEGACIÓN PRO (TIPO PRINTFUL)
+         ========================================= -->
     <header class="navbar">
-      <div class="logo">
+      
+      <!-- IZQUIERDA: Logo -->
+      <div class="navbar-izq">
         <a href="/">
           <img src="/logo.png" alt="MatSof Logo" class="logo-img">
         </a>
       </div>
-      <nav>
-        <ul>
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/nosotros.html">Nosotros</a></li>
-          <li><a href="#productos">Catálogo</a></li>
-          <li><a href="#contacto">Cotizar</a></li>
-        </ul>
-      </nav>
+
+      <!-- CENTRO: Buscador y Menú -->
+      <div class="navbar-centro">
+        <div class="caja-buscador">
+          <input type="text" placeholder="Buscar polos, tazas, termos...">
+          <button type="submit" class="btn-buscar"><i class="fas fa-search"></i></button>
+        </div>
+        <nav class="menu-principal">
+          <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/nosotros.html">Nosotros</a></li>
+            <li><a href="#productos">Catálogo</a></li>
+            <li><a href="#contacto">Cotizar</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- DERECHA: Cuenta y Región -->
+      <div class="navbar-der">
+        <a href="#" class="icono-texto"><i class="fas fa-globe"></i> ES / PEN</a>
+        <a href="#" class="icono-texto"><i class="fas fa-user"></i> Entrar</a>
+        <a href="#" class="btn-registro">Registrarse</a>
+      </div>
+
     </header>
 
     <!-- =========================================

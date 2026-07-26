@@ -1,154 +1,363 @@
 /* =========================================
-   VARIABLES DE MARCA (Nivel PRO)
+   VARIABLES GLOBALES (Tus colores CMYK)
    ========================================= */
 :root {
   --cmyk-cyan: #00AEEF;
   --cmyk-magenta: #E6007E;
   --cmyk-yellow: #FFF200;
   --cmyk-black: #1A1A1A;
-  
   --bg-light: #F8F9FA;
-  --text-main: #333333;
 }
 
-/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--cmyk-black);
 }
 
 /* =========================================
-   BARRA DE NAVEGACIÓN
+   1. BARRA DE NAVEGACIÓN PRO (TIPO PRINTFUL)
    ========================================= */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 50px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+  padding: 15px 5%;
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
+  gap: 20px;
 }
 
-.logo-img {
-  height: 45px; /* Ajusta el tamaño de tu logo aquí */
-  width: auto;
+.navbar-izq .logo-img {
+  height: 50px;
+  transition: transform 0.3s ease;
 }
 
-.navbar ul {
+.navbar-izq .logo-img:hover {
+  transform: scale(1.05);
+}
+
+.navbar-centro {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.caja-buscador {
+  display: flex;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.caja-buscador:focus-within {
+  border-color: var(--cmyk-cyan);
+  box-shadow: 0 0 5px rgba(0, 174, 239, 0.3);
+}
+
+.caja-buscador input {
+  flex: 1;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.btn-buscar {
+  background-color: var(--cmyk-cyan);
+  color: white;
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-buscar:hover {
+  background-color: #008fcc;
+}
+
+.menu-principal ul {
   display: flex;
   list-style: none;
-  gap: 30px;
+  gap: 25px;
 }
 
-.navbar a {
+.menu-principal a {
   text-decoration: none;
-  color: var(--text-main);
+  color: var(--cmyk-black);
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   transition: color 0.3s ease;
 }
 
-/* Efecto hover en el menú usando tu color Cian */
-.navbar a:hover {
+.menu-principal a:hover {
+  color: var(--cmyk-magenta);
+}
+
+.navbar-der {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icono-texto {
+  text-decoration: none;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease;
+}
+
+.icono-texto i {
+  font-size: 1.1rem;
+}
+
+.icono-texto:hover {
   color: var(--cmyk-cyan);
 }
 
-/* =========================================
-   SECCIÓN PRINCIPAL (HERO)
-   ========================================= */
-.hero {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: var(--bg-light);
-  padding: 0 20px;
+.btn-registro {
+  background-color: var(--cmyk-black);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
 }
 
-.hero h2 {
-  font-size: 3.5rem;
+.btn-registro:hover {
+  background-color: var(--cmyk-yellow);
   color: var(--cmyk-black);
-  margin-bottom: 20px;
+}
+
+@media (max-width: 950px) {
+  .navbar {
+    flex-direction: column;
+    padding: 15px;
+  }
+  .navbar-der {
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+  }
+}
+
+/* =========================================
+   2. HERO SECTION (PORTADA PRINCIPAL)
+   ========================================= */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; 
+  /* Aumentamos el espacio arriba porque la nueva barra es más alta */
+  padding: 180px 5% 100px; 
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  gap: 40px;
+}
+
+.hero-contenido {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 3.8rem;
+  line-height: 1.1;
+  color: var(--cmyk-black);
+  margin-bottom: 25px;
+}
+
+.texto-cmyk {
+  background: linear-gradient(to right, var(--cmyk-cyan), var(--cmyk-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .hero p {
-  font-size: 1.3rem;
-  color: #666;
-  margin-bottom: 40px;
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 35px;
+  line-height: 1.6;
 }
 
-/* Botón principal usando el Magenta de tu logo */
-.btn-primary {
-  padding: 15px 40px;
+.hero-botones {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-primario {
   background-color: var(--cmyk-magenta);
   color: white;
-  border: none;
+  padding: 15px 30px;
   border-radius: 8px;
-  font-size: 1.2rem;
+  text-decoration: none;
   font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(230, 0, 126, 0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-/* Al pasar el mouse, cambia al Cian de tu logo */
-.btn-primary:hover {
-  background-color: var(--cmyk-cyan);
-  box-shadow: 0 4px 15px rgba(0, 174, 239, 0.3);
-  transform: translateY(-2px);
+.btn-primario:hover {
+  background-color: #c4006b;
+  transform: translateY(-3px);
+}
+
+.btn-secundario {
+  background-color: transparent;
+  color: var(--cmyk-black);
+  padding: 15px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: 2px solid var(--cmyk-black);
+  transition: all 0.3s ease;
+}
+
+.btn-secundario:hover {
+  background-color: var(--cmyk-black);
+  color: white;
+}
+
+.hero-imagen {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-imagen img {
+  max-width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  animation: flotar 4s ease-in-out infinite; 
+}
+
+@keyframes flotar {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
 }
 
 /* =========================================
-   SECCIÓN CATÁLOGO (CSS Grid)
+   3. SECCIÓN BENEFICIOS
+   ========================================= */
+.beneficios {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px 5%;
+  background-color: var(--cmyk-black);
+  color: white;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.beneficio {
+  text-align: center;
+  flex: 1;
+  min-width: 250px;
+}
+
+.beneficio .icono {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.beneficio h3 {
+  color: var(--cmyk-yellow);
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.beneficio p {
+  color: #cccccc;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   4. SECCIÓN CATÁLOGO
    ========================================= */
 .seccion-catalogo {
-  padding: 80px 50px;
-  background-color: #ffffff;
+  padding: 80px 5%;
   text-align: center;
 }
 
 .titulo-seccion {
   font-size: 2.5rem;
-  color: var(--cmyk-black);
   margin-bottom: 40px;
+  color: var(--cmyk-black);
 }
 
-/* La magia del diseño responsivo PRO */
+.filtros-categoria {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.btn-filtro {
+  padding: 10px 25px;
+  border: 2px solid var(--cmyk-cyan);
+  background-color: transparent;
+  color: var(--cmyk-black);
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-filtro:hover, .btn-filtro.activo {
+  background-color: var(--cmyk-cyan);
+  color: white;
+}
+
 .grid-productos {
   display: grid;
-  /* Crea columnas automáticamente según el espacio, mínimo 250px de ancho */
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
-/* Diseño de la Tarjeta */
 .tarjeta-producto {
-  background: white;
-  border-radius: 12px;
-  overflow: hidden; /* Evita que la imagen se salga de los bordes redondeados */
-  box-shadow: 0 5px 20px rgba(0,0,0,0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
 }
 
-/* Efecto al pasar el cursor (Hover) */
 .tarjeta-producto:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
 .producto-img {
   width: 100%;
   height: 250px;
-  object-fit: cover; /* Centra y recorta la imagen perfectamente */
+  object-fit: cover;
 }
 
 .producto-info {
@@ -161,174 +370,160 @@
   color: var(--cmyk-magenta);
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 1px;
 }
 
 .producto-info h3 {
-  font-size: 1.2rem;
-  color: var(--cmyk-black);
   margin: 10px 0;
+  font-size: 1.2rem;
 }
 
 .producto-precio {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: var(--cmyk-cyan);
   margin-bottom: 15px;
 }
 
-.btn-cotizar {
+.btn-cotizar, .btn-agregar {
   width: 100%;
   padding: 12px;
   background-color: var(--cmyk-black);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: bold;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.btn-cotizar:hover {
+.btn-cotizar:hover, .btn-agregar:hover {
   background-color: var(--cmyk-yellow);
   color: var(--cmyk-black);
 }
 
 /* =========================================
-   FILTROS DE CATEGORÍA
-   ========================================= */
-.filtros-categoria {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 40px;
-  flex-wrap: wrap; /* Permite que los botones bajen a otra línea en celulares */
-}
-
-.btn-filtro {
-  padding: 10px 25px;
-  background-color: var(--bg-light);
-  color: var(--text-main);
-  border: 2px solid #e0e0e0;
-  border-radius: 30px; /* Bordes totalmente redondeados tipo pastilla */
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-/* Efecto al pasar el cursor */
-.btn-filtro:hover {
-  border-color: var(--cmyk-cyan);
-  color: var(--cmyk-cyan);
-}
-
-/* Diseño del botón cuando está seleccionado (clase 'activo' que maneja JS) */
-.btn-filtro.activo {
-  background-color: var(--cmyk-cyan);
-  color: white;
-  border-color: var(--cmyk-cyan);
-  box-shadow: 0 4px 10px rgba(0, 174, 239, 0.3);
-}
-
-/* =========================================
-   SECCIÓN DE CONTACTO
+   5. SECCIÓN CONTACTO
    ========================================= */
 .seccion-contacto {
-  padding: 80px 20px;
-  background-color: var(--bg-light);
-  display: flex;
-  justify-content: center;
+  padding: 80px 5%;
+  background-color: white;
 }
 
 .contacto-contenedor {
-  background: white;
-  padding: 50px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   max-width: 600px;
-  width: 100%;
+  margin: 0 auto;
   text-align: center;
-  border-top: 5px solid var(--cmyk-cyan); /* Un toque de tu color de marca */
-}
-
-.contacto-contenedor h2 {
-  font-size: 2.2rem;
-  color: var(--cmyk-black);
-  margin-bottom: 10px;
 }
 
 .contacto-contenedor p {
-  color: #666;
   margin-bottom: 30px;
+  color: #555;
 }
 
-/* Estilos de los campos del formulario */
 .formulario {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.grupo-input input,
-.grupo-input select,
-.grupo-input textarea {
+.grupo-input input, .grupo-input select, .grupo-input textarea {
   width: 100%;
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
-  font-family: inherit;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-/* Efecto al hacer clic para escribir (Focus) */
-.grupo-input input:focus,
-.grupo-input select:focus,
-.grupo-input textarea:focus {
-  outline: none;
-  border-color: var(--cmyk-cyan);
-  box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.1);
 }
 
 .btn-enviar {
   width: 100%;
-  margin-top: 10px;
-}
-
-/* =========================================
-   BOTÓN FLOTANTE WSP / CARRITO
-   ========================================= */
-.btn-flotante-wsp {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background-color: #25D366; /* Verde oficial de WhatsApp */
+  background-color: var(--cmyk-cyan);
+  border: none;
+  cursor: pointer;
   color: white;
-  padding: 15px 25px;
-  border-radius: 50px;
   font-weight: bold;
-  font-size: 1.1rem;
-  text-decoration: none;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-  z-index: 1000;
-  transition: transform 0.3s ease;
-  display: none; /* Lo mantenemos oculto hasta que agreguen algo al carrito */
+  padding: 15px;
+  border-radius: 8px;
 }
 
-.btn-flotante-wsp:hover {
-  transform: scale(1.05);
+.btn-enviar:hover {
+  background-color: #008fcc;
 }
 
 /* =========================================
-   PIE DE PÁGINA (FOOTER)
+   6. PÁGINA NOSOTROS
+   ========================================= */
+.seccion-nosotros {
+  padding: 180px 50px 80px; 
+  background-color: var(--bg-light);
+  min-height: 80vh;
+}
+
+.nosotros-contenedor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.nosotros-texto h2 {
+  font-size: 3rem;
+  color: var(--cmyk-black);
+  margin-bottom: 25px;
+}
+
+.nosotros-texto h2 span {
+  color: var(--cmyk-cyan);
+}
+
+.nosotros-texto p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.lista-valores {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.lista-valores li {
+  font-size: 1.1rem;
+  color: var(--cmyk-black);
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.nosotros-imagen img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.nosotros-imagen img:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 900px) {
+  .nosotros-contenedor {
+    grid-template-columns: 1fr;
+  }
+  .seccion-nosotros {
+    padding: 200px 20px 60px;
+  }
+}
+
+/* =========================================
+   7. PIE DE PÁGINA (FOOTER)
    ========================================= */
 .footer {
   background-color: var(--cmyk-black);
   color: white;
   padding: 70px 50px 20px;
-  margin-top: 50px; /* Separación de la sección anterior */
+  margin-top: 50px;
 }
 
 .footer-contenido {
@@ -372,7 +567,6 @@
   transition: color 0.3s ease, padding-left 0.3s ease;
 }
 
-/* Efecto increíble al pasar el ratón: el texto se mueve a la derecha y se pinta de Magenta */
 .footer-columna ul a:hover {
   color: var(--cmyk-magenta);
   padding-left: 8px; 
@@ -387,216 +581,25 @@
 }
 
 /* =========================================
-   PÁGINA: NOSOTROS
+   8. BOTÓN FLOTANTE WSP / CARRITO
    ========================================= */
-.seccion-nosotros {
-  padding: 150px 50px 80px; /* Mucho padding arriba para que el navbar no tape el contenido */
-  background-color: var(--bg-light);
-  min-height: 80vh;
-}
-
-.nosotros-contenedor {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  max-width: 1200px;
-  margin: 0 auto;
-  align-items: center;
-}
-
-.nosotros-texto h2 {
-  font-size: 3rem;
-  color: var(--cmyk-black);
-  margin-bottom: 25px;
-}
-
-/* Pintamos la palabra MatSof de cian */
-.nosotros-texto h2 span {
-  color: var(--cmyk-cyan);
-}
-
-.nosotros-texto p {
+.btn-flotante-wsp {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #25D366; 
+  color: white;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-weight: bold;
   font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 20px;
-  line-height: 1.8;
-}
-
-.lista-valores {
-  list-style: none;
-  margin-top: 30px;
-}
-
-.lista-valores li {
-  font-size: 1.1rem;
-  color: var(--cmyk-black);
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-.nosotros-imagen img {
-  width: 100%;
-  border-radius: 15px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  z-index: 1000;
   transition: transform 0.3s ease;
+  display: none; 
 }
 
-.nosotros-imagen img:hover {
-  transform: scale(1.02);
-}
-
-/* Diseño responsivo para celulares */
-@media (max-width: 900px) {
-  .nosotros-contenedor {
-    grid-template-columns: 1fr;
-  }
-  .seccion-nosotros {
-    padding: 120px 20px 60px;
-  }
-}
-
-/* =========================================
-   HERO SECTION (PORTADA PRINCIPAL)
-   ========================================= */
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap; 
-  padding: 150px 5% 100px; /* Usamos el padding para dar el tamaño en lugar de height */
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  gap: 40px;
-}
-
-.hero-contenido {
-  flex: 1;
-  max-width: 600px;
-}
-
-.hero h1 {
-  font-size: 3.8rem;
-  line-height: 1.1;
-  color: var(--cmyk-black);
-  margin-bottom: 25px;
-}
-
-/* Efecto de texto con degradado Cian-Magenta (Súper moderno) */
-.texto-cmyk {
-  background: linear-gradient(to right, var(--cmyk-cyan), var(--cmyk-magenta));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  color: #555;
-  margin-bottom: 35px;
-  line-height: 1.6;
-}
-
-.hero-botones {
-  display: flex;
-  gap: 15px;
-}
-
-.btn-primario {
-  background-color: var(--cmyk-magenta);
-  color: white;
-  padding: 15px 30px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.btn-primario:hover {
-  background-color: #c4006b;
-  transform: translateY(-3px);
-}
-
-.btn-secundario {
-  background-color: transparent;
-  color: var(--cmyk-black);
-  padding: 15px 30px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-  border: 2px solid var(--cmyk-black);
-  transition: all 0.3s ease;
-}
-
-.btn-secundario:hover {
-  background-color: var(--cmyk-black);
-  color: white;
-}
-
-.hero-imagen {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.hero-imagen img {
-  max-width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-  /* Animación CSS infinita para que flote sola */
-  animation: flotar 4s ease-in-out infinite; 
-}
-
-@keyframes flotar {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
-}
-
-/* =========================================
-   SECCIÓN BENEFICIOS
-   ========================================= */
-.beneficios {
-  display: flex;
-  justify-content: space-around;
-  padding: 60px 5%;
-  background-color: var(--cmyk-black);
-  color: white;
-  flex-wrap: wrap;
-  gap: 30px;
-}
-
-.beneficio {
-  text-align: center;
-  flex: 1;
-  min-width: 250px;
-}
-
-.beneficio .icono {
-  font-size: 3.5rem;
-  display: block;
-  margin-bottom: 15px;
-}
-
-.beneficio h3 {
-  color: var(--cmyk-yellow); /* Destacamos el título en tu amarillo */
-  margin-bottom: 10px;
-  font-size: 1.3rem;
-}
-
-.beneficio p {
-  color: #cccccc;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-/* Diseño responsivo para celulares */
-@media (max-width: 900px) {
-  .hero {
-    flex-direction: column;
-    text-align: center;
-    padding-top: 150px;
-  }
-  .hero-botones {
-    justify-content: center;
-  }
+.btn-flotante-wsp:hover {
+  transform: scale(1.05);
 }
