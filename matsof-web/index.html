@@ -39,7 +39,7 @@
         </div>
 
         <div class="navbar-der">
-          <a href="#" class="icono-texto"><i class="fas fa-globe"></i> ES / PEN</a>
+          <a href="#" id="btn-abrir-region" class="icono-texto"><i class="fas fa-globe"></i> ES / PEN</a>
           <a href="#" class="icono-texto"><i class="fas fa-user"></i> Entrar</a>
           <a href="#" class="btn-registro">Registrarse</a>
         </div>
@@ -60,9 +60,9 @@
     <!-- =========================================
          SECCIÓN HERO (PORTADA)
          ========================================= -->
-    <header class="hero">
+    <header id="hero-section" class="hero">
       <div class="hero-contenido" data-aos="fade-right" data-aos-duration="1000">
-        <h1>Transforma tus ideas en <span class="texto-cmyk">productos increíbles</span></h1>
+        <h1 id="hero-titulo">Transforma tus ideas en <span class="texto-cmyk">productos increíbles</span></h1>
         <p>Impresión DTF y Sublimación de alta calidad para emprendedores y marcas. Sin pedidos mínimos, con acabados premium y colores vibrantes.</p>
         <div class="hero-botones">
           <a href="#productos" class="btn-primario">Ver Catálogo</a>
@@ -70,10 +70,9 @@
         </div>
       </div>
       <div class="hero-imagen" data-aos="fade-left" data-aos-duration="1200">
-        <img src="https://via.placeholder.com/600x500/1A1A1A/00AEEF?text=Tu+Dise%C3%B1o+AQU%C3%8D" alt="Muestra de productos MatSof">
+        <img id="hero-imagen-dinamica" src="/termo-2.jpg" alt="Muestra de productos MatSof">
       </div>
     </header>
-
     <!-- =========================================
          BARRA DE BENEFICIOS (CON ÍCONOS)
          ========================================= -->
@@ -146,6 +145,59 @@
         </form>
       </div>
     </section>
+
+    <!-- =========================================
+         MENÚS DESPLEGABLES Y MODALES (NIVEL PRO)
+         ========================================= -->
+    
+    <!-- 1. Menú Desplegable Moneda/Idioma -->
+    <div id="dropdown-region" class="dropdown-flotante oculto">
+      <h4>Selecciona tu región</h4>
+      <select id="select-moneda">
+        <option value="PEN">🇵🇪 Perú (PEN - S/)</option>
+        <option value="USD">🇺🇸 Estados Unidos (USD - $)</option>
+        <option value="EUR">🇪🇺 Europa (EUR - €)</option>
+      </select>
+      <button id="btn-guardar-region" class="btn-primario-pequeno">Guardar</button>
+    </div>
+
+    <!-- 2. Fondo Oscuro para Modales (Overlay) -->
+    <div id="overlay-modales" class="overlay oculto"></div>
+
+    <!-- 3. Modal de Iniciar Sesión -->
+    <div id="modal-login" class="caja-modal oculto">
+      <button class="btn-cerrar-modal"><i class="fas fa-times"></i></button>
+      <h2>Inicia Sesión</h2>
+      <p>Bienvenido de vuelta a MatSof.</p>
+      <form id="form-login" class="formulario">
+        <div class="grupo-input">
+          <input type="email" id="login-email" placeholder="Correo electrónico" required>
+        </div>
+        <div class="grupo-input">
+          <input type="password" id="login-password" placeholder="Contraseña" required>
+        </div>
+        <button type="submit" class="btn-enviar">Entrar</button>
+      </form>
+    </div>
+
+    <!-- 4. Modal de Registro -->
+    <div id="modal-registro" class="caja-modal oculto">
+      <button class="btn-cerrar-modal"><i class="fas fa-times"></i></button>
+      <h2>Crea tu cuenta</h2>
+      <p>Únete para guardar tus diseños y pedidos.</p>
+      <form id="form-registro" class="formulario">
+        <div class="grupo-input">
+          <input type="text" id="registro-nombre" placeholder="Nombre completo" required>
+        </div>
+        <div class="grupo-input">
+          <input type="email" id="registro-email" placeholder="Correo electrónico" required>
+        </div>
+        <div class="grupo-input">
+          <input type="password" id="registro-password" placeholder="Crea una contraseña" required>
+        </div>
+        <button type="submit" class="btn-enviar">Registrarme</button>
+      </form>
+    </div>
 
     <!-- =========================================
          PIE DE PÁGINA (FOOTER)

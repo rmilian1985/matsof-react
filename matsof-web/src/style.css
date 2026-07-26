@@ -334,6 +334,21 @@ body {
   100% { transform: translateY(0px); }
 }
 
+/* --- Animaciones para el Hero Dinámico (Efecto Printful) --- */
+#hero-section {
+  transition: background 0.8s ease-in-out;
+}
+
+#hero-titulo, #hero-imagen-dinamica {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+/* Esta clase la pondrá y quitará JavaScript para hacer el efecto de desvanecimiento */
+.fade-out {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
 /* =========================================
    3. SECCIÓN BENEFICIOS
    ========================================= */
@@ -411,7 +426,7 @@ body {
 
 .grid-productos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 30px;
 }
 
@@ -430,7 +445,10 @@ body {
 .producto-img {
   width: 100%;
   height: 250px;
-  object-fit: cover;
+  /* 'contain' encaja la imagen completa sin cortar nada */
+  object-fit: contain; 
+  /* Le ponemos fondo blanco por si la foto no es cuadrada, para que se mezcle con la tarjeta */
+  background-color: #ffffff; 
 }
 
 .producto-info {
@@ -675,4 +693,118 @@ body {
 
 .btn-flotante-wsp:hover {
   transform: scale(1.05);
+}
+
+/* =========================================
+   ESTILOS PRO: MODALES Y DROPDOWNS
+   ========================================= */
+
+.dropdown-flotante {
+  position: absolute;
+  top: 60px;
+  right: 5%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 20px;
+  width: 250px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-flotante.oculto {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+.dropdown-flotante h4 {
+  font-size: 1rem;
+  color: var(--cmyk-black);
+}
+
+.dropdown-flotante select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.btn-primario-pequeno {
+  background-color: var(--cmyk-black);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 3000;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.oculto {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.caja-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  z-index: 3001;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  text-align: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.caja-modal.oculto {
+  opacity: 0;
+  transform: translate(-50%, -45%) scale(0.95);
+  pointer-events: none;
+}
+
+.btn-cerrar-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.btn-cerrar-modal:hover {
+  color: var(--cmyk-magenta);
+}
+
+.caja-modal h2 {
+  color: var(--cmyk-black);
+  margin-bottom: 5px;
+}
+
+.caja-modal p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
 }
