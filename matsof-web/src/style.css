@@ -59,14 +59,21 @@ body {
   justify-content: center; 
 }
 
+/* --- NUEVO: Contenedor Flotante del Buscador --- */
+.contenedor-buscador {
+  position: relative; /* Clave para que el cuadro flote anclado a esta caja */
+  width: 100%;
+  max-width: 600px;
+}
+
 .caja-buscador {
   display: flex;
   width: 100%;
-  max-width: 600px;
   border: 1px solid #ddd;
   border-radius: 50px;
   overflow: hidden;
   transition: border-color 0.3s ease;
+  background-color: white;
 }
 
 .caja-buscador:focus-within {
@@ -94,6 +101,60 @@ body {
 .btn-buscar:hover {
   background-color: #008fcc;
 }
+
+/* --- NUEVO: El Cuadro Flotante de Resultados --- */
+.resultados-dropdown {
+  position: absolute;
+  top: 110%; /* Se coloca justo debajo de la barra */
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  max-height: 350px;
+  overflow-y: auto;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+}
+
+.resultados-dropdown.oculto {
+  display: none; 
+}
+
+.resultado-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.resultado-item:hover {
+  background-color: #f8f9fa;
+}
+
+.resultado-img {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.resultado-info h4 {
+  font-size: 0.95rem;
+  color: var(--cmyk-black);
+  margin-bottom: 3px;
+}
+
+.resultado-info p {
+  font-size: 0.9rem;
+  color: var(--cmyk-cyan);
+  font-weight: bold;
+}
+/* ----------------------------------------------- */
 
 .navbar-der {
   display: flex;

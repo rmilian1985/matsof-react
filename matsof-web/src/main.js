@@ -1,4 +1,4 @@
-import './style.css'; // Esto le dice a Vite que cargue tus diseños
+import './style.css'; 
 
 // ==========================================
 // 1. BASE DE DATOS (Productos)
@@ -9,7 +9,7 @@ const productos = [
     nombre: "Polo Orgullo Peruano DTF",
     categoria: "Polos",
     precio: "S/ 45.00",
-    imagen: "/diseno-peru.png" // Imagen temporal
+    imagen: "/diseno-peru.png" 
   },
   {
     id: 2,
@@ -35,14 +35,14 @@ const productos = [
 ];
 
 // ==========================================
-// 2. CATÁLOGO, FILTROS Y BUSCADOR
+// 2. CATÁLOGO Y BUSCADOR INTELIGENTE
 // ==========================================
 const contenedorProductos = document.getElementById('grid-productos');
-const inputBuscador = document.getElementById('input-buscador'); // Atrapamos el buscador
+const inputBuscador = document.getElementById('input-buscador'); 
+const resultadosDropdown = document.getElementById('resultados-busqueda');
 
 if (contenedorProductos) {
   
-  // A. Función para dibujar los productos
   function renderizarProductos(listaDatos) {
     contenedorProductos.innerHTML = '';
     
@@ -65,22 +65,18 @@ if (contenedorProductos) {
     });
   }
 
-  // Dibujar todos los productos al cargar la página
   renderizarProductos(productos);
 
-  // B. Lógica de Filtros (Botones)
   const botonesFiltro = document.querySelectorAll('.btn-filtro');
   botonesFiltro.forEach(boton => {
     boton.addEventListener('click', (evento) => {
-      
-      // Si hacen clic en un botón, limpiamos lo que haya en la barra de búsqueda
       if (inputBuscador) inputBuscador.value = '';
+      if (resultadosDropdown) resultadosDropdown.classList.add('oculto');
 
       botonesFiltro.forEach(btn => btn.classList.remove('activo'));
-      const botonClickeado = evento.target;
-      botonClickeado.classList.add('activo');
+      evento.target.classList.add('activo');
 
-      const categoriaSeleccionada = botonClickeado.getAttribute('data-categoria');
+      const categoriaSeleccionada = evento.target.getAttribute('data-categoria');
 
       if (categoriaSeleccionada === 'Todos') {
         renderizarProductos(productos); 
@@ -90,28 +86,73 @@ if (contenedorProductos) {
       }
     });
   });
+}
 
-  // C. Lógica del Buscador en tiempo real
-  if (inputBuscador) {
-    inputBuscador.addEventListener('input', (evento) => {
-      // Pasamos lo que escribe el usuario a minúsculas
-      const textoBusqueda = evento.target.value.toLowerCase();
-      
-      // Filtramos la base de datos comparando el nombre o la categoría
-      const productosFiltrados = productos.filter(producto => {
-        const nombreProducto = producto.nombre.toLowerCase();
-        const categoriaProducto = producto.categoria.toLowerCase();
-        
-        return nombreProducto.includes(textoBusqueda) || categoriaProducto.includes(textoBusqueda);
-      });
+// C. Lógica del Buscador Flotante (Estilo Printful)
+if (inputBuscador && resultadosDropdown) {
+  inputBuscador.addEventListener('input', (evento) => {
+    const textoBusqueda = evento.target.value.toLowerCase().trim();
+    
+    // Si la barra está vacía, ocultamos el cuadro
+    if (textoBusqueda === '') {
+      resultadosDropdown.classList.add('oculto');
+      resultadosDropdown.innerHTML = '';
+      if (contenedorProductos) renderizarProductos(productos);
+      return;
+    }
 
-      // Dibujamos los productos que coinciden
-      renderizarProductos(productosFiltrados);
-
-      // Le quitamos la clase 'activo' a los botones porque ahora manda el buscador
-      botonesFiltro.forEach(btn => btn.classList.remove('activo'));
+    const productosFiltrados = productos.filter(producto => {
+      const nombreProducto = producto.nombre.toLowerCase();
+      const categoriaProducto = producto.categoria.toLowerCase();
+      return nombreProducto.includes(textoBusqueda) || categoriaProducto.includes(textoBusqueda);
     });
-  }
+
+    if (contenedorProductos) renderizarProductos(productosFiltrados);
+
+    // Limpiamos y dibujamos el cuadro flotante
+    resultadosDropdown.innerHTML = '';
+
+    if (productosFiltrados.length > 0) {
+      productosFiltrados.forEach(producto => {
+        const item = document.createElement('div');
+        item.classList.add('resultado-item');
+        item.innerHTML = `
+          <img src="${producto.imagen}" alt="${producto.nombre}" class="resultado-img">
+          <div class="resultado-info">
+            <h4>${producto.nombre}</h4>
+            <p>${producto.precio}</p>
+          </div>
+        `;
+        
+        // Si hace clic en un resultado flotante:
+        item.addEventListener('click', () => {
+          window.location.href = '/#productos'; // Viaja directo al catálogo
+          inputBuscador.value = ''; 
+          resultadosDropdown.classList.add('oculto'); 
+          if (contenedorProductos) renderizarProductos([producto]); 
+        });
+        
+        resultadosDropdown.appendChild(item);
+      });
+      resultadosDropdown.classList.remove('oculto');
+    } else {
+      resultadosDropdown.innerHTML = `
+        <div class="resultado-item">
+          <div class="resultado-info"><h4 style="color: #888;">No se encontraron productos</h4></div>
+        </div>`;
+      resultadosDropdown.classList.remove('oculto');
+    }
+    
+    const botonesFiltro = document.querySelectorAll('.btn-filtro');
+    if (botonesFiltro) botonesFiltro.forEach(btn => btn.classList.remove('activo'));
+  });
+
+  // Truco UX: Ocultar cuadro si hace clic en el fondo blanco de la página
+  document.addEventListener('click', (evento) => {
+    if (!inputBuscador.contains(evento.target) && !resultadosDropdown.contains(evento.target)) {
+      resultadosDropdown.classList.add('oculto');
+    }
+  });
 }
 
 // ==========================================
@@ -120,7 +161,7 @@ if (contenedorProductos) {
 const formulario = document.getElementById('formulario-cotizacion');
 
 if (formulario) {
-  emailjs.init("P7E3WdCKZ32p_0E0x"); // Tu Public Key
+  emailjs.init("P7E3WdCKZ32p_0E0x"); 
   const botonEnviar = document.querySelector('.btn-enviar');
 
   formulario.addEventListener('submit', function(evento) {
@@ -139,7 +180,6 @@ if (formulario) {
 
     emailjs.send("service_9c7ka5f", "template_orfycuz", parametros)
       .then(function(respuesta) {
-        console.log('¡ÉXITO!', respuesta.status, respuesta.text);
         Swal.fire({
           title: '¡Cotización Enviada!',
           text: 'Hemos recibido tu mensaje. Nos contactaremos contigo muy pronto.',
@@ -148,7 +188,6 @@ if (formulario) {
         });
         formulario.reset();
       }, function(error) {
-        console.log('Fallo al enviar...', error);
         Swal.fire({
           title: '¡Ups!',
           text: 'Hubo un error al enviar tu mensaje. Inténtalo de nuevo.',
@@ -171,7 +210,7 @@ const btnFlotanteWsp = document.getElementById('btn-flotante-wsp');
 if (btnFlotanteWsp) {
   let carrito = []; 
   const contadorCarrito = document.getElementById('contador-carrito');
-  const numeroWhatsApp = "51983400330"; // Tu número real
+  const numeroWhatsApp = "51983400330"; 
 
   if (contenedorProductos) {
     contenedorProductos.addEventListener('click', (evento) => {
