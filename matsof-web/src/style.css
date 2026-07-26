@@ -454,3 +454,149 @@
     padding: 120px 20px 60px;
   }
 }
+
+/* =========================================
+   HERO SECTION (PORTADA PRINCIPAL)
+   ========================================= */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 130px 5% 80px; /* Padding alto para que el nav no lo tape */
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 80vh;
+  gap: 40px;
+}
+
+.hero-contenido {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 3.8rem;
+  line-height: 1.1;
+  color: var(--cmyk-black);
+  margin-bottom: 25px;
+}
+
+/* Efecto de texto con degradado Cian-Magenta (Súper moderno) */
+.texto-cmyk {
+  background: linear-gradient(to right, var(--cmyk-cyan), var(--cmyk-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 35px;
+  line-height: 1.6;
+}
+
+.hero-botones {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-primario {
+  background-color: var(--cmyk-magenta);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-primario:hover {
+  background-color: #c4006b;
+  transform: translateY(-3px);
+}
+
+.btn-secundario {
+  background-color: transparent;
+  color: var(--cmyk-black);
+  padding: 15px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: 2px solid var(--cmyk-black);
+  transition: all 0.3s ease;
+}
+
+.btn-secundario:hover {
+  background-color: var(--cmyk-black);
+  color: white;
+}
+
+.hero-imagen {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-imagen img {
+  max-width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  /* Animación CSS infinita para que flote sola */
+  animation: flotar 4s ease-in-out infinite; 
+}
+
+@keyframes flotar {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* =========================================
+   SECCIÓN BENEFICIOS
+   ========================================= */
+.beneficios {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px 5%;
+  background-color: var(--cmyk-black);
+  color: white;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.beneficio {
+  text-align: center;
+  flex: 1;
+  min-width: 250px;
+}
+
+.beneficio .icono {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.beneficio h3 {
+  color: var(--cmyk-yellow); /* Destacamos el título en tu amarillo */
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.beneficio p {
+  color: #cccccc;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Diseño responsivo para celulares */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 150px;
+  }
+  .hero-botones {
+    justify-content: center;
+  }
+}
