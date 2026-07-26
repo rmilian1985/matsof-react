@@ -14,15 +14,17 @@
     <!-- BARRA DE NAVEGACIÓN -->
     <header class="navbar">
       <div class="logo">
-        <img src="/logo.png" alt="MatSof Logo" class="logo-img">
+        <a href="/">
+          <img src="/logo.png" alt="MatSof Logo" class="logo-img">
+        </a>
       </div>
       <nav>
         <ul>
-        <li><a href="/">Inicio</a></li>
-        <li><a href="/nosotros.html">Nosotros</a></li>
-        <li><a href="#productos">Catálogo</a></li>
-        <li><a href="#contacto">Cotizar</a></li>
-      </ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/nosotros.html">Nosotros</a></li>
+          <li><a href="#productos">Catálogo</a></li>
+          <li><a href="#contacto">Cotizar</a></li>
+        </ul>
       </nav>
     </header>
 
@@ -65,26 +67,13 @@
       </div>
     </section>
 
-    <!-- SECCIÓN PRINCIPAL (HERO) -->
-    <main>
-      <section id="inicio" class="hero">
-        <div class="hero-content">
-          <h2>Personaliza tu estilo, crea tu marca</h2>
-          <p>Polos, tazas, termos y más con la mejor calidad de impresión DTF.</p>
-          <button class="btn-primary">Ver Catálogo</button>
-        </div>
-      </section>
-    </main>
-
-    <!-- SECCIÓN DE PRODUCTOS (Catálogo Dinámico) -->
-    <section id="productos" class="seccion-catalogo">
-      <h2 class="titulo-seccion">Nuestro Catálogo</h2>
-
-      <!-- SECCIÓN DE PRODUCTOS (Catálogo Dinámico) -->
+    <!-- =========================================
+         SECCIÓN DE PRODUCTOS (Catálogo Dinámico)
+         ========================================= -->
     <section id="productos" class="seccion-catalogo">
       <h2 class="titulo-seccion">Nuestro Catálogo</h2>
       
-      <!-- NUEVO: Contenedor de Filtros -->
+      <!-- Contenedor de Filtros -->
       <div class="filtros-categoria">
         <button class="btn-filtro activo" data-categoria="Todos">Todos</button>
         <button class="btn-filtro" data-categoria="Polos">Polos</button>
@@ -97,14 +86,10 @@
         <!-- El contenido se generará automáticamente -->
       </div>
     </section>
-      
-      <!-- Aquí es donde JavaScript inyectará las tarjetas de los productos -->
-      <div id="grid-productos" class="grid-productos">
-        <!-- El contenido se generará automáticamente -->
-      </div>
-    </section>
 
-    <!-- SECCIÓN DE CONTACTO -->
+    <!-- =========================================
+         SECCIÓN DE CONTACTO
+         ========================================= -->
     <section id="contacto" class="seccion-contacto">
       <div class="contacto-contenedor">
         <h2>Cotiza tu Proyecto</h2>
@@ -134,7 +119,9 @@
       </div>
     </section>
 
-    <!-- PIE DE PÁGINA (FOOTER) -->
+    <!-- =========================================
+         PIE DE PÁGINA (FOOTER)
+         ========================================= -->
     <footer class="footer">
       <div class="footer-contenido">
         

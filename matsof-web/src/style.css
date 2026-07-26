@@ -462,10 +462,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap; /* EL TRUCO MÁGICO: Permite que los elementos se acomoden si no hay espacio */
-  padding: 160px 5% 80px; /* Aumentamos un poquito el espacio superior para proteger el texto */
+  flex-wrap: wrap; 
+  padding: 150px 5% 100px; /* Usamos el padding para dar el tamaño en lugar de height */
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  min-height: 100vh; /* Que ocupe el 100% de la pantalla visible */
   gap: 40px;
 }
 
