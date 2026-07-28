@@ -1,0 +1,819 @@
+/* --- AJUSTE PARA REACT --- */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+
+/* =========================================
+   VARIABLES GLOBALES (Tus colores CMYK)
+   ========================================= */
+:root {
+  --cmyk-cyan: #00AEEF;
+  --cmyk-magenta: #E6007E;
+  --cmyk-yellow: #FFF200;
+  --cmyk-black: #1A1A1A;
+  --bg-light: #F8F9FA;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--cmyk-black);
+}
+
+/* =========================================
+   1. BARRA DE NAVEGACIÓN PRO (DOBLE NIVEL - IZQUIERDA)
+   ========================================= */
+.header-principal {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* --- Nivel de Arriba (Buscador y Login) --- */
+.navbar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%;
+  border-bottom: 1px solid #f0f0f0; 
+  gap: 20px;
+}
+
+.navbar-izq .logo-img {
+  height: 50px;
+  transition: transform 0.3s ease;
+}
+
+.navbar-izq .logo-img:hover {
+  transform: scale(1.05);
+}
+
+.navbar-centro {
+  flex: 1; 
+  display: flex;
+  justify-content: center; 
+}
+
+/* --- NUEVO: Contenedor Flotante del Buscador --- */
+.contenedor-buscador {
+  position: relative; /* Clave para que el cuadro flote anclado a esta caja */
+  width: 100%;
+  max-width: 600px;
+}
+
+.caja-buscador {
+  display: flex;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+  background-color: white;
+}
+
+.caja-buscador:focus-within {
+  border-color: var(--cmyk-cyan);
+  box-shadow: 0 0 5px rgba(0, 174, 239, 0.3);
+}
+
+.caja-buscador input {
+  flex: 1;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.btn-buscar {
+  background-color: var(--cmyk-cyan);
+  color: white;
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-buscar:hover {
+  background-color: #008fcc;
+}
+
+/* --- NUEVO: El Cuadro Flotante de Resultados --- */
+.resultados-dropdown {
+  position: absolute;
+  top: 110%; /* Se coloca justo debajo de la barra */
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  max-height: 350px;
+  overflow-y: auto;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+}
+
+.resultados-dropdown.oculto {
+  display: none; 
+}
+
+.resultado-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.resultado-item:hover {
+  background-color: #f8f9fa;
+}
+
+.resultado-img {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.resultado-info h4 {
+  font-size: 0.95rem;
+  color: var(--cmyk-black);
+  margin-bottom: 3px;
+}
+
+.resultado-info p {
+  font-size: 0.9rem;
+  color: var(--cmyk-cyan);
+  font-weight: bold;
+}
+/* ----------------------------------------------- */
+
+.navbar-der {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icono-texto {
+  text-decoration: none;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease;
+}
+
+.icono-texto:hover {
+  color: var(--cmyk-cyan);
+}
+
+.btn-registro {
+  background-color: var(--cmyk-black);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-registro:hover {
+  background-color: var(--cmyk-yellow);
+  color: var(--cmyk-black);
+}
+
+/* --- Nivel de Abajo (Enlaces de Navegación) --- */
+.navbar-bottom {
+  background-color: #fafafa;
+  padding: 12px 5%; /* El mismo 5% lateral que tiene el logo arriba */
+}
+
+.menu-enlaces {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+  justify-content: flex-start; /* AQUÍ ESTÁ LA MAGIA: Todo a la izquierda */
+}
+
+.menu-enlaces a {
+  text-decoration: none;
+  color: var(--cmyk-black);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.menu-enlaces a:hover {
+  color: var(--cmyk-magenta);
+}
+
+/* Ajustes para celulares */
+@media (max-width: 950px) {
+  .navbar-top {
+    flex-direction: column;
+    padding: 15px;
+  }
+  .navbar-der {
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+  }
+  .menu-enlaces {
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center; /* En móviles es mejor dejarlo centrado */
+  }
+}
+
+/* =========================================
+   2. HERO SECTION (PORTADA PRINCIPAL)
+   ========================================= */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; 
+  /* Aumentamos el espacio arriba porque la nueva barra es más alta */
+  padding: 180px 5% 100px; 
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  gap: 40px;
+}
+
+.hero-contenido {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 3.8rem;
+  line-height: 1.1;
+  color: var(--cmyk-black);
+  margin-bottom: 25px;
+}
+
+.texto-cmyk {
+  background: linear-gradient(to right, var(--cmyk-cyan), var(--cmyk-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 35px;
+  line-height: 1.6;
+}
+
+.hero-botones {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-primario {
+  background-color: var(--cmyk-magenta);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-primario:hover {
+  background-color: #c4006b;
+  transform: translateY(-3px);
+}
+
+.btn-secundario {
+  background-color: transparent;
+  color: var(--cmyk-black);
+  padding: 15px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: 2px solid var(--cmyk-black);
+  transition: all 0.3s ease;
+}
+
+.btn-secundario:hover {
+  background-color: var(--cmyk-black);
+  color: white;
+}
+
+.hero-imagen {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-imagen img {
+  max-width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  animation: flotar 4s ease-in-out infinite; 
+}
+
+@keyframes flotar {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* --- Animaciones para el Hero Dinámico (Efecto Printful) --- */
+#hero-section {
+  transition: background 0.8s ease-in-out;
+}
+
+#hero-titulo, #hero-imagen-dinamica {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+/* Esta clase la pondrá y quitará JavaScript para hacer el efecto de desvanecimiento */
+.fade-out {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* =========================================
+   3. SECCIÓN BENEFICIOS
+   ========================================= */
+.beneficios {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px 5%;
+  background-color: var(--cmyk-black);
+  color: white;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.beneficio {
+  text-align: center;
+  flex: 1;
+  min-width: 250px;
+}
+
+.beneficio .icono {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.beneficio h3 {
+  color: var(--cmyk-yellow);
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.beneficio p {
+  color: #cccccc;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* =========================================
+   4. SECCIÓN CATÁLOGO
+   ========================================= */
+.seccion-catalogo {
+  padding: 80px 5%;
+  text-align: center;
+}
+
+.titulo-seccion {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: var(--cmyk-black);
+}
+
+.filtros-categoria {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.btn-filtro {
+  padding: 10px 25px;
+  border: 2px solid var(--cmyk-cyan);
+  background-color: transparent;
+  color: var(--cmyk-black);
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-filtro:hover, .btn-filtro.activo {
+  background-color: var(--cmyk-cyan);
+  color: white;
+}
+
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.tarjeta-producto {
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.tarjeta-producto:hover {
+  transform: translateY(-10px);
+}
+
+.producto-img {
+  width: 100%;
+  height: 250px;
+  /* 'contain' encaja la imagen completa sin cortar nada */
+  object-fit: contain; 
+  /* Le ponemos fondo blanco por si la foto no es cuadrada, para que se mezcle con la tarjeta */
+  background-color: #ffffff; 
+}
+
+.producto-info {
+  padding: 20px;
+  text-align: left;
+}
+
+.producto-categoria {
+  font-size: 0.85rem;
+  color: var(--cmyk-magenta);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.producto-info h3 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+
+.producto-precio {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--cmyk-cyan);
+  margin-bottom: 15px;
+}
+
+.btn-cotizar, .btn-agregar {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--cmyk-black);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cotizar:hover, .btn-agregar:hover {
+  background-color: var(--cmyk-yellow);
+  color: var(--cmyk-black);
+}
+
+/* =========================================
+   5. SECCIÓN CONTACTO
+   ========================================= */
+.seccion-contacto {
+  padding: 80px 5%;
+  background-color: white;
+}
+
+.contacto-contenedor {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contacto-contenedor p {
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.grupo-input input, .grupo-input select, .grupo-input textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.btn-enviar {
+  width: 100%;
+  background-color: var(--cmyk-cyan);
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.btn-enviar:hover {
+  background-color: #008fcc;
+}
+
+/* =========================================
+   6. PÁGINA NOSOTROS
+   ========================================= */
+.seccion-nosotros {
+  padding: 180px 50px 80px; 
+  background-color: var(--bg-light);
+  min-height: 80vh;
+}
+
+.nosotros-contenedor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.nosotros-texto h2 {
+  font-size: 3rem;
+  color: var(--cmyk-black);
+  margin-bottom: 25px;
+}
+
+.nosotros-texto h2 span {
+  color: var(--cmyk-cyan);
+}
+
+.nosotros-texto p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.lista-valores {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.lista-valores li {
+  font-size: 1.1rem;
+  color: var(--cmyk-black);
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.nosotros-imagen img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.nosotros-imagen img:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 900px) {
+  .nosotros-contenedor {
+    grid-template-columns: 1fr;
+  }
+  .seccion-nosotros {
+    padding: 200px 20px 60px;
+  }
+}
+
+/* =========================================
+   7. PIE DE PÁGINA (FOOTER)
+   ========================================= */
+.footer {
+  background-color: var(--cmyk-black);
+  color: white;
+  padding: 70px 50px 20px;
+  margin-top: 50px;
+}
+
+.footer-contenido {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+.footer-columna h3 {
+  color: var(--cmyk-cyan);
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.footer-columna h4 {
+  color: var(--cmyk-yellow);
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.footer-columna p {
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.footer-columna ul {
+  list-style: none;
+}
+
+.footer-columna ul li {
+  margin-bottom: 12px;
+}
+
+.footer-columna ul a {
+  color: #cccccc;
+  text-decoration: none;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.footer-columna ul a:hover {
+  color: var(--cmyk-magenta);
+  padding-left: 8px; 
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   8. BOTÓN FLOTANTE WSP / CARRITO
+   ========================================= */
+.btn-flotante-wsp {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #25D366; 
+  color: white;
+  padding: 15px 25px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  display: none; 
+}
+
+.btn-flotante-wsp:hover {
+  transform: scale(1.05);
+}
+
+/* =========================================
+   ESTILOS PRO: MODALES Y DROPDOWNS
+   ========================================= */
+
+.dropdown-flotante {
+  position: absolute;
+  top: 60px;
+  right: 5%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 20px;
+  width: 250px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-flotante.oculto {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+.dropdown-flotante h4 {
+  font-size: 1rem;
+  color: var(--cmyk-black);
+}
+
+.dropdown-flotante select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.btn-primario-pequeno {
+  background-color: var(--cmyk-black);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 3000;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.oculto {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.caja-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  z-index: 3001;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  text-align: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.caja-modal.oculto {
+  opacity: 0;
+  transform: translate(-50%, -45%) scale(0.95);
+  pointer-events: none;
+}
+
+.btn-cerrar-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.btn-cerrar-modal:hover {
+  color: var(--cmyk-magenta);
+}
+
+.caja-modal h2 {
+  color: var(--cmyk-black);
+  margin-bottom: 5px;
+}
+
+.caja-modal p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
