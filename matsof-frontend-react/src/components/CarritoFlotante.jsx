@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-const URL_BACKEND = 'http://localhost:3000/api';
+const URL_BACKEND = 'https://matsof-react.onrender.com/api';
 
 function CarritoFlotante({ usuario, setModalActivo, actualizador }) {
   const [cantidadTotal, setCantidadTotal] = useState(0);

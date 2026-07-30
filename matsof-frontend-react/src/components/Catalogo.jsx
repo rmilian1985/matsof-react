@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
-const URL_BACKEND = 'http://localhost:3000/api';
+const URL_BACKEND = 'https://matsof-react.onrender.com/api';
 
 const productos = [
   { id: 1, nombre: "Polo Orgullo Peruano DTF", categoria: "Polos", precio: "S/ 45.00", imagen: "/polo-blanco.jpg" },

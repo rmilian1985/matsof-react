@@ -1,7 +1,7 @@
 import React from 'react';
 import Swal from 'sweetalert2';
 
-const URL_BACKEND = 'http://localhost:3000/api';
+const URL_BACKEND = 'https://matsof-react.onrender.com/api';
 
 function Modales({ modalActivo, setModalActivo, setUsuario }) {
   // Si no hay ningún modal activo, le decimos a React que no dibuje nada (null)
@@ -71,7 +71,7 @@ function Modales({ modalActivo, setModalActivo, setUsuario }) {
       Swal.fire('Error de Red', 'Asegúrate de que el servidor Backend esté encendido.', 'error');
     }
   };
-  
+
   return (
     <>
       {/* Fondo Oscuro */}
