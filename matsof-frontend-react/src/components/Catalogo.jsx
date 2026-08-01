@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 const URL_BACKEND = 'https://matsof-react.onrender.com/api';
 
-const productos = [
-  { id: 1, nombre: "Polo Orgullo Peruano DTF", categoria: "Polos", precio: "S/ 45.00", imagen: "/polo-blanco.jpg" },
-  { id: 2, nombre: "Taza Mágica Corporativa", categoria: "Tazas", precio: "S/ 25.00", imagen: "/taza-blanca-1.jpg" },
-  { id: 3, nombre: "Termo Digital 500ml", categoria: "Termos", precio: "S/ 55.00", imagen: "/termo-1.jpg" },
-  { id: 4, nombre: "Polo Personalizado Logo", categoria: "Polos", precio: "S/ 50.00", imagen: "/polo-negro.jpg" }
-];
-
 // Recibimos las herramientas necesarias desde App.jsx
 function Catalogo({ usuario, setModalActivo, notificarCarrito }) {
   const [categoriaActiva, setCategoriaActiva] = useState('Todos');
+  
+  // 1. EL ALMACÉN: Estado para los productos que vienen de MongoDB
+  const [productos, setProductos] = useState([]);
+  
+  // 2. EL INDICADOR: Para saber si estamos esperando la respuesta de Internet
+  const [cargando, setCargando] = useState(true);
+
+  // 3. LA LLAMADA AL BACKEND: Se ejecuta automáticamente al entrar a la página
+  useEffect(() => {
+    const obtenerProductos = async () => {
+      try {
+        const respuesta = await fetch(`${URL_BACKEND}/productos`);
+        const datos = await respuesta.json();
+        
+        // Guardamos los datos de MongoDB en el estado y quitamos la pantalla de carga
+        setProductos(datos);
+        setCargando(false);
+      } catch (error) {
+        console.error("Error al cargar el catálogo:", error);
+        setCargando(false);
+      }
+    };
+
+    obtenerProductos();
+  }, []);
 
   const productosFiltrados = categoriaActiva === 'Todos' 
     ? productos 
@@ -25,7 +43,8 @@ function Catalogo({ usuario, setModalActivo, notificarCarrito }) {
       return;
     }
 
-    const precioNumerico = parseFloat(producto.precio.replace('S/ ', ''));
+    // 4. ADAPTACIÓN DE PRECIO: Como ahora es número desde MongoDB, lo usamos directo
+    const precioNumerico = parseFloat(producto.precio); 
     let opcionesVariante = '';
     
     if (producto.categoria === 'Polos') {
@@ -78,7 +97,7 @@ function Catalogo({ usuario, setModalActivo, notificarCarrito }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: usuario.email,
-          productoId: producto.id,
+          productoId: producto._id, // 5. ADAPTACIÓN DE ID: Usamos _id de MongoDB
           nombre: producto.nombre,
           precio: precioNumerico,
           cantidad: formValues.cantidad,
@@ -97,6 +116,15 @@ function Catalogo({ usuario, setModalActivo, notificarCarrito }) {
     }
   };
 
+  // Pantalla temporal mientras llegan los datos del servidor
+  if (cargando) {
+    return (
+      <section id="productos" className="seccion-catalogo" style={{ textAlign: 'center', padding: '100px 0' }}>
+        <h2 style={{ color: '#666' }}>Cargando catálogo oficial... ⏳</h2>
+      </section>
+    );
+  }
+
   return (
     <section id="productos" className="seccion-catalogo">
       <h2 className="titulo-seccion">Nuestro Catálogo</h2>
@@ -111,14 +139,15 @@ function Catalogo({ usuario, setModalActivo, notificarCarrito }) {
       
       <div id="grid-productos" className="grid-productos">
         {productosFiltrados.map(producto => (
-          <div key={producto.id} className="tarjeta-producto" data-aos="fade-up" data-aos-duration="1000">
+          // Usamos _id como identificador único para React
+          <div key={producto._id} className="tarjeta-producto" data-aos="fade-up" data-aos-duration="1000">
             <img src={producto.imagen} alt={producto.nombre} className="producto-img" />
             <div className="producto-info">
               <span className="producto-categoria">{producto.categoria}</span>
               <h3>{producto.nombre}</h3>
-              <p className="producto-precio">{producto.precio}</p>
+              {/* Formateamos visualmente el precio matemático para que muestre S/ y decimales */}
+              <p className="producto-precio">S/ {parseFloat(producto.precio).toFixed(2)}</p>
               
-              {/* Conectamos el botón de agregar a nuestra nueva función */}
               <button className="btn-cotizar btn-agregar" onClick={() => agregarAlCarrito(producto)}>
                 Agregar al Pedido
               </button>

@@ -55,10 +55,58 @@ const usuarioSchema = new mongoose.Schema({
 
 const Usuario = mongoose.model('Usuario', usuarioSchema);
 
+// ==========================================
+// 4.5 MODELO DE PRODUCTO (El Catálogo)
+// ==========================================
+const productoSchema = new mongoose.Schema({
+  nombre: { type: String, required: true },
+  descripcion: { type: String, required: true },
+  precio: { type: Number, required: true },
+  imagen: { type: String, required: true },
+  categoria: { type: String, default: 'General' }
+});
+
+const Producto = mongoose.model('Producto', productoSchema);
 
 // ==========================================
 // 5. RUTAS DEL BACKEND (API)
 // ==========================================
+
+// Ruta: CREAR un nuevo producto (Solo Administrador)
+app.post('/api/productos', async (req, res) => {
+  try {
+    // 1. Tomamos los datos que nos envías (nombre, precio, imagen)
+    const datosProducto = req.body;
+
+    // 2. Usamos el molde para fabricar el producto
+    const nuevoProducto = new Producto(datosProducto);
+
+    // 3. Lo guardamos en la bóveda de MongoDB
+    await nuevoProducto.save();
+
+    res.status(201).json({ 
+      mensaje: '¡Producto creado exitosamente en el catálogo!', 
+      producto: nuevoProducto 
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ mensaje: 'Error al crear el producto.', detalles: error.message });
+  }
+});
+
+// Ruta: LEER todos los productos (Para mostrar en el Frontend)
+app.get('/api/productos', async (req, res) => {
+  try {
+    // Busca TODOS los productos en la colección de MongoDB
+    const todosLosProductos = await Producto.find();
+    
+    // Se los envía a tu página de React
+    res.status(200).json(todosLosProductos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: 'Error al obtener el catálogo.' });
+  }
+});
 
 // Ruta A: Registrar un nuevo usuario
 app.post('/api/registro', async (req, res) => {
